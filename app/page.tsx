@@ -1,65 +1,253 @@
-import Image from "next/image";
+import Link from 'next/link';
+import Image from 'next/image';
+import prisma from '@/lib/prisma';
+import ProducerSection from './components/ProducerSection';
+import LatestExportsCarousel from './components/LatestExportsCarousel';
+import HeroSection from './components/HeroSection';
+import NewsletterSection from './components/NewsletterSection';
+import ContactSection from './components/ContactSection';
 
-export default function Home() {
+
+export default async function Home() {
+
+  // Fetch latest 3 blog posts
+  const recentPosts = await prisma.blogPost.findMany({
+    where: { published: true },
+    orderBy: { createdAt: 'desc' },
+    take: 3,
+  });
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <div className="min-h-screen bg-background text-foreground font-sans selection:bg-accent selection:text-white">
+
+      {/* Hero Section & Intent Cards (Client Component) */}
+      <HeroSection />
+
+      {/* Music & Bookings Section - Layout 2.0 (Seamless & Full Width) */}
+      <section id="music" className="py-24 lg:py-32 px-6 relative bg-[#0a0a0a] border-t border-white/5">
+        {/* Silver Gradient Top Highlight */}
+        <div className="absolute top-0 left-0 w-full h-32 bg-gradient-to-b from-gray-200/10 via-gray-400/5 to-transparent pointer-events-none z-10"></div>
+
+        <div className="container mx-auto max-w-7xl relative z-20">
+
+          {/* Section Header */}
+          <div className="flex flex-col lg:flex-row justify-between items-start mb-16 gap-8">
+            <div className="relative">
+              <h2 className="text-6xl lg:text-8xl font-black uppercase tracking-tighter text-white leading-[0.9]">
+                LATEST MUSIC <br /> & BOOKINGS
+              </h2>
+              <div className="mt-6 flex items-center gap-4">
+                <div className="h-px w-12 bg-accent"></div>
+                <p className="text-gray-400 text-lg font-medium tracking-wide">
+                  Sydney based. Available worldwide.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start mb-24">
+
+            {/* Column 1: Latest Music - 6 Cols */}
+            <div className="lg:col-span-6 bg-[#111] border border-white/10 rounded-[2.5rem] p-8 lg:p-12 h-full shadow-2xl">
+              <LatestExportsCarousel />
+            </div>
+
+            {/* Column 2: Upcoming Dates - 6 Cols */}
+            <div id="dates" className="lg:col-span-6 bg-[#111] border border-white/10 rounded-[2.5rem] p-8 lg:p-12 h-full space-y-12 shadow-2xl">
+              {/* Simplified Upcoming Dates */}
+              <div className="h-full flex flex-col">
+                <div>
+                  <div className="flex justify-between items-end mb-12">
+                    <div>
+                      <span className="text-gray-500 font-mono text-xs uppercase tracking-widest mb-2 block">2026 Season</span>
+                      <h3 className="text-4xl lg:text-5xl font-black uppercase tracking-tighter text-white leading-[0.9]">
+                        Upcoming <br /> Dates
+                      </h3>
+                    </div>
+                  </div>
+
+                  <div className="space-y-8">
+                    <div className="group cursor-default">
+                      <p className="text-2xl font-bold text-white mb-6 group-hover:text-accent transition-colors duration-300">
+                        No public dates right now.
+                      </p>
+
+                      {/* Integrated Form */}
+                      <form action="mailto:sandy@sandymusic.com" method="GET" className="flex gap-4 items-center group/form">
+                        <input type="hidden" name="subject" value="Tour Notification List" />
+                        <input type="hidden" name="body" value="Please notify me when tour dates are announced." />
+
+                        <div className="relative flex-1 max-w-sm">
+                          <span className="hidden lg:block absolute left-0 top-1/2 -translate-y-1/2 text-accent transform -translate-x-full opacity-0 group-hover/form:opacity-100 group-hover/form:-translate-x-4 transition-all duration-300">→</span>
+                          <input type="email" placeholder="Join the list for first access" className="bg-transparent border-b border-white/20 pb-2 text-lg text-white placeholder-gray-500 focus:outline-none focus:border-accent w-full transition-colors p-0 rounded-none" />
+                        </div>
+                        <button type="submit" className="w-10 h-10 shrink-0 rounded-full bg-white/5 hover:bg-white hover:text-black flex items-center justify-center transition-all duration-300 border border-white/10 group-hover/form:border-accent/50 group-hover/form:bg-accent/10 group-hover/form:text-accent group-hover/form:hover:bg-accent group-hover/form:hover:text-black">
+                          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
+                        </button>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Booking Enquiry - Full Width Row (Moved Bottom) */}
+          <div className="relative">
+            <div className="flex items-center gap-4 mb-8 opacity-50">
+              <div className="h-px bg-white/20 flex-1"></div>
+              <span className="text-xs font-bold uppercase tracking-widest text-gray-500">Industry & Bookings</span>
+              <div className="h-px bg-white/20 flex-1"></div>
+            </div>
+
+            <div className="bg-[#050505] p-8 lg:p-12 border border-white/5 rounded-[2rem] relative overflow-hidden group">
+              <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-accent/5 blur-[100px] rounded-full translate-x-1/2 -translate-y-1/2 pointer-events-none"></div>
+
+              <div className="relative z-10">
+                <div className="mb-8">
+                  <h3 className="text-3xl lg:text-4xl font-black uppercase tracking-tight text-white mb-2">
+                    Booking Enquiry
+                  </h3>
+                  <p className="text-gray-400 max-w-md mx-auto lg:mx-0 text-lg">
+                    Club nights, festivals, and international bookings.
+                  </p>
+                </div>
+
+                {/* Simple form wrapper for mailto linkage */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {/* Note: In a Server Component we can't easily capture onSubmit for complex mailto generation without client JS. 
+                      Ideally this entire Booking Form should also be a Client Component if we want the complex mailto builder.
+                      For now, let's keep the layout but acknowledging the limitation, or move this specific form logic to a component too.
+                      Let's move this to a BookingForm component later or utilize the ContactSection logic pattern if consistent.
+                      Actually, let's just make a simple link for now or import a client BookingForm.
+                  */}
+                  <div className="md:col-span-2">
+                    <a href="mailto:sandy@sandymusic.com?subject=Booking Enquiry" className="block w-full text-center h-14 bg-white text-black text-base font-black uppercase tracking-[0.2em] rounded-full hover:bg-accent hover:text-white transition-all duration-300 shadow-lg hover:shadow-orange-500/20 py-4">
+                      Send Booking Request via Email
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div >
+      </section >
+
+
+      {/* Producer Section */}
+      < ProducerSection />
+
+      {/* Blog: Connected to Prisma */}
+      <section id="blog" className="py-32 lg:py-48 px-6 relative overflow-hidden bg-black">
+
+        {/* Background Atmosphere */}
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full max-w-[1200px] pointer-events-none">
+          <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-indigo-900/10 blur-[120px] rounded-full mix-blend-screen"></div>
+          <div className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-accent/5 blur-[120px] rounded-full mix-blend-screen"></div>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+
+        <div className="container mx-auto max-w-7xl relative z-10">
+
+          {/* Header */}
+          <div className="text-center mb-24 relative">
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[10rem] md:text-[16rem] font-black text-white/[0.02] select-none pointer-events-none leading-none tracking-tighter">
+              03
+            </div>
+            <h2 className="text-6xl md:text-8xl font-black uppercase tracking-tighter mb-6 relative z-10 text-transparent bg-clip-text bg-gradient-to-b from-white to-gray-500">
+              The Blog
+            </h2>
+            <div className="h-1 w-20 bg-accent mx-auto mb-8 rounded-full"></div>
+            <p className="text-gray-400 text-lg md:text-xl font-medium max-w-2xl mx-auto leading-relaxed">
+              Deep dives into production techniques, marketing strategies, and what I&apos;ve learnt from the industry.
+            </p>
+          </div>
+
+          {/* Dynamic Cards Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {recentPosts.length > 0 ? (
+              recentPosts.map((post) => (
+                <Link key={post.id} href={`/blog/${post.slug}`} className="group relative block h-full">
+                  <div className="absolute inset-0 bg-gradient-to-b from-white/10 to-transparent rounded-[2rem] -z-10 translate-y-2 opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl"></div>
+
+                  <div className="h-full bg-[#080808] border border-white/5 rounded-[2rem] flex flex-col transition-all duration-500 hover:-translate-y-2 hover:border-white/20 hover:shadow-2xl hover:shadow-accent/10 relative overflow-hidden">
+
+                    {/* Card Image */}
+                    <div className="relative h-64 w-full overflow-hidden">
+                      {post.imageUrl ? (
+                        <Image
+                          src={post.imageUrl}
+                          alt={post.title}
+                          fill
+                          className="object-cover group-hover:scale-105 transition-transform duration-500"
+                        />
+                      ) : (
+                        <div className="w-full h-full bg-gray-900 flex items-center justify-center">
+                          <span className="text-gray-700 font-black text-4xl uppercase">No Info</span>
+                        </div>
+                      )}
+                      <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors duration-500"></div>
+                    </div>
+
+                    {/* Content Wrapper */}
+                    <div className="p-8 md:p-10 flex flex-col flex-grow relative">
+
+                      {/* Hover Gradient Overlay */}
+                      <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+
+                      {/* Category Badge */}
+                      <div className="mb-8 relative z-10">
+                        {post.categories && post.categories.length > 0 && (
+                          <span className="inline-block px-3 py-1 rounded-full border border-white/10 bg-white/5 text-[10px] font-bold uppercase tracking-[0.2em] text-gray-400 group-hover:text-accent group-hover:border-accent/30 transition-colors">
+                            {post.categories[0]}
+                          </span>
+                        )}
+                      </div>
+
+                      {/* Content */}
+                      <div className="flex-grow relative z-10">
+                        <h3 className="text-2xl lg:text-3xl font-black uppercase leading-[0.9] tracking-tight mb-4 text-white group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-gray-400 transition-all duration-300">
+                          {post.title}
+                        </h3>
+                        <p className="text-gray-500 text-sm font-medium leading-relaxed group-hover:text-gray-400 transition-colors line-clamp-3">
+                          {post.excerpt}
+                        </p>
+                      </div>
+
+                      {/* Action Footer */}
+                      <div className="mt-8 pt-8 border-t border-white/5 flex items-center justify-between group-hover:border-white/10 transition-colors relative z-10">
+                        <span className="text-xs font-bold uppercase tracking-widest text-gray-500 group-hover:text-white transition-colors">Read Article</span>
+                        <div className="w-10 h-10 rounded-full border border-white/10 bg-white/5 flex items-center justify-center text-white group-hover:bg-white group-hover:text-black group-hover:scale-110 transition-all duration-300">
+                          <svg className="w-4 h-4 transform group-hover:-rotate-45 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </Link>
+              ))
+            ) : (
+              <div className="col-span-3 text-center py-12 border border-white/5 rounded-3xl bg-[#080808]">
+                <p className="text-gray-500 text-xl font-medium">No blog posts found.</p>
+              </div>
+            )}
+          </div>
+
+          {/* View All Button */}
+          <div className="mt-20 text-center">
+            <Link href="/blog" className="inline-flex items-center gap-3 text-sm font-bold uppercase tracking-[0.2em] text-gray-500 hover:text-white transition-colors group">
+              <span>View All Posts</span>
+              <svg className="w-4 h-4 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
+            </Link>
+          </div>
+
         </div>
-      </main>
-    </div>
+      </section>
+
+      {/* Newsletter Section */}
+      <NewsletterSection />
+
+      {/* Contact */}
+      <ContactSection />
+
+    </div >
   );
 }

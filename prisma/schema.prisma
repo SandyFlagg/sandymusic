@@ -1,0 +1,179 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+  engineType = "library"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Comment {
+  id        String   @id @default(cuid())
+  content   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  // Relations
+  postSlug  String   // The blog post this belongs to
+  userId    String   // Clerk User ID
+  userName  String   // Cached display name
+  userAvatar String? // Cached avatar URL
+  
+  // Threading (Replies)
+  parentId  String?
+  parent    Comment? @relation("CommentReplies", fields: [parentId], references: [id])
+  replies   Comment[] @relation("CommentReplies")
+}
+
+model Product {
+  id          String   @id @default(cuid())
+  slug        String   @unique
+  name        String
+  category    String   // 'ableton-templates', 'serum-presets', 'trinkets'
+  genre       String?
+  price       Float
+  description String?
+  artistStyle String?
+  
+  // JSON fields for complex data
+  specs       Json?    // { daw, plugins, bpm, key }
+  features    String[] // Product key features
+  badges      String[] // ['Serum Required', 'Best Seller']
+  
+  image               String?
+  downloadUrl         String?  // The file for the user to download
+  previewAudioUrl     String?  // Audio preview for the shop
+  backgroundTexture   String?
+  soldOut             Boolean @default(false)
+  rating              Float?
+  reviews             Int @default(0)
+  sales               Int @default(0)
+  
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  // Relations
+  orderItems  OrderItem[]
+}
+
+model Order {
+  id              String   @id @default(cuid())
+  userId          String   // Clerk User ID
+  userEmail       String
+  
+  stripeSessionId String?  @unique
+  stripePaymentId String?
+  
+  total           Float
+  status          String   // 'pending', 'completed', 'failed'
+  
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  
+  // Relations
+  items           OrderItem[]
+}
+
+model OrderItem {
+  id         String   @id @default(cuid())
+  
+  orderId    String
+  order      Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  
+  productId  String
+  product    Product  @relation(fields: [productId], references: [id])
+  
+  quantity   Int
+  priceAtPurchase Float // Snapshot of price at time of purchase
+  
+  createdAt  DateTime @default(now())
+}
+
+model BlogPost {
+  id          String   @id @default(cuid())
+  slug        String   @unique
+  title       String
+  excerpt     String
+  content     String   // HTML content
+  keyPoints   String[] // Key takeaways/summary points
+  
+  // Creator (Clerk User) - Maps to existing 'authorId' column
+  creatorId   String   @map("authorId")
+
+  // Snapshot fields (Keep for fallback/legacy)
+  authorName  String
+  authorAvatar String?
+  authorBio   String?
+  authorRole  String?
+  
+  categories    String[]   // 'Production', 'DJing', 'Backstage'
+  tags        String[]
+  imageUrl    String?
+  readTime    String?
+
+  // SEO & Internal
+  metaTitle       String?
+  metaDescription String?
+  adminNotes      String?
+  
+  // Author Relation (New System)
+  blogAuthorId String?
+  author       Author?  @relation(fields: [blogAuthorId], references: [id])
+  
+  published   Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Author {
+  id        String   @id @default(cuid())
+  name      String
+  role      String?
+  bio       String?
+  avatarUrl String?
+  
+  posts     BlogPost[]
+  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Media {
+  id        String   @id @default(cuid())
+  filename  String
+  url       String
+  type      String
+  size      Int
+  
+  altText   String?
+  caption   String?
+  category  String?
+  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Submission {
+  id        String   @id @default(cuid())
+  email     String
+  type      String   // 'TEMPLATE_REQUEST', 'DEMO_SUBMISSION'
+  data      Json?    // Stores extra fields like 'link' or message
+  status    String   @default("pending") // 'pending', 'reviewed', 'archived'
+  createdAt DateTime @default(now())
+}
+
+model Page {
+  id              String   @id @default(cuid())
+  title           String
+  slug            String   @unique
+  description     String?
+  content         String?  // HTML content
+  metaTitle       String?
+  metaDescription String?
+  isPublished     Boolean  @default(false)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
