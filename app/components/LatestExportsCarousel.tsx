@@ -38,7 +38,7 @@ export default function LatestExportsCarousel() {
             <div className="flex justify-between items-end mb-12">
                 <div>
                     <span className="text-gray-500 font-mono text-xs uppercase tracking-widest mb-2 block">New Releases</span>
-                    <h3 className="text-4xl lg:text-5xl font-black uppercase tracking-tighter text-white leading-[0.9]">
+                    <h3 className="text-4xl lg:text-5xl font-black uppercase tracking-tighter text-white leading-none">
                         Latest<br />Music
                     </h3>
                 </div>
@@ -76,7 +76,7 @@ export default function LatestExportsCarousel() {
                         {/* Glow Effect */}
                         <div className="absolute -inset-1 bg-gradient-to-b from-accent to-purple-600 rounded-xl blur opacity-0 group-hover:opacity-30 transition duration-500 will-change-[opacity]"></div>
 
-                        <div className="relative w-full shadow-2xl rounded-xl overflow-hidden bg-[#0a0a0a] border border-white/10 group-hover:border-accent/50 transition-all duration-500 group-hover:-translate-y-1">
+                        <div className="relative w-full shadow-2xl rounded-3xl overflow-hidden bg-[#111] border border-white/10 group-hover:border-accent/50 transition-all duration-500 group-hover:-translate-y-1">
                             <iframe
                                 width="100%"
                                 height={track.height}

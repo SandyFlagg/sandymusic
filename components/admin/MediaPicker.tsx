@@ -24,22 +24,23 @@ export default function MediaPicker({ onSelect, className = '' }: MediaPickerPro
     const [selectedCategory, setSelectedCategory] = useState('blog');
 
     // Fetch Logic
-    const fetchMedia = async () => {
+    // Fetch Logic
+    const fetchMedia = useCallback(async () => {
         const res = await fetch('/api/upload');
         const data = await res.json();
         if (data.success) {
             setMedia(data.media);
         }
-    };
+    }, []);
 
     useEffect(() => {
         if (activeTab === 'library') {
             fetchMedia();
         }
-    }, [activeTab]);
+    }, [activeTab, fetchMedia]);
 
     // Upload Logic
-    const handleUpload = async (file: File) => {
+    const handleUpload = useCallback(async (file: File) => {
         setUploading(true);
         const formData = new FormData();
         formData.append('file', file);
@@ -58,12 +59,12 @@ export default function MediaPicker({ onSelect, className = '' }: MediaPickerPro
             } else {
                 alert('Upload failed: ' + data.message);
             }
-        } catch (err) {
+        } catch {
             alert('Upload error');
         } finally {
             setUploading(false);
         }
-    };
+    }, [selectedCategory, onSelect, fetchMedia]);
 
     const handleDrop = useCallback((e: React.DragEvent) => {
         e.preventDefault();
@@ -71,7 +72,7 @@ export default function MediaPicker({ onSelect, className = '' }: MediaPickerPro
         if (e.dataTransfer.files?.[0]) {
             handleUpload(e.dataTransfer.files[0]);
         }
-    }, [selectedCategory]);
+    }, [handleUpload]);
 
     return (
         <div className={`bg-gray-900 border border-white/10 rounded-xl overflow-hidden flex flex-col ${className}`}>

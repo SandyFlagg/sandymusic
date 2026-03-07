@@ -4,15 +4,15 @@ import React from 'react';
 
 const NewsletterSection = () => {
     return (
-        <section className="py-32 px-6 border-t border-white/10 bg-[#0a0a0a]">
+        <section className="pt-16 lg:pt-20 pb-32 lg:pb-40 px-6 bg-black">
             <div className="container mx-auto max-w-7xl">
-                <div className="bg-[#111] text-white border border-white/10 rounded-[2.5rem] p-12 lg:p-24 relative overflow-hidden text-center lg:text-left flex flex-col lg:flex-row items-center justify-between gap-16">
+                <div className="bg-[#111] text-white border border-white/5 rounded-[2.5rem] p-12 lg:p-24 relative overflow-hidden text-center lg:text-left flex flex-col lg:flex-row items-center justify-between gap-16">
 
                     {/* Visual Accent */}
                     <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-accent/10 blur-[100px] rounded-full translate-x-1/2 -translate-y-1/2 pointer-events-none"></div>
 
                     <div className="relative z-10 max-w-2xl">
-                        <h2 className="text-5xl lg:text-7xl font-black uppercase tracking-tighter mb-6 leading-[0.9]">
+                        <h2 className="text-5xl lg:text-7xl font-black uppercase tracking-tighter mb-6 leading-none">
                             Don&apos;t miss <br /> a beat.
                         </h2>
                         <p className="text-lg lg:text-xl font-medium text-gray-400 max-w-lg leading-relaxed">

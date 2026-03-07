@@ -21,19 +21,19 @@ export default function MediaLibrary() {
 
     const [selectedItem, setSelectedItem] = useState<MediaItem | null>(null);
 
-    const fetchMedia = async () => {
+    const fetchMedia = useCallback(async () => {
         const res = await fetch('/api/upload');
         const data = await res.json();
         if (data.success) {
             setMedia(data.media);
         }
-    };
+    }, []);
 
     useEffect(() => {
         fetchMedia();
-    }, []);
+    }, [fetchMedia]);
 
-    const handleUpload = async (file: File) => {
+    const handleUpload = useCallback(async (file: File) => {
         setUploading(true);
         const formData = new FormData();
         formData.append('file', file);
@@ -51,12 +51,12 @@ export default function MediaLibrary() {
             } else {
                 alert('Upload failed: ' + data.message);
             }
-        } catch (err) {
+        } catch {
             alert('Upload error');
         } finally {
             setUploading(false);
         }
-    };
+    }, [fetchMedia]);
 
     const handleDrag = useCallback((e: React.DragEvent) => {
         e.preventDefault();
@@ -75,7 +75,7 @@ export default function MediaLibrary() {
         if (e.dataTransfer.files && e.dataTransfer.files[0]) {
             handleUpload(e.dataTransfer.files[0]);
         }
-    }, []);
+    }, [handleUpload]);
 
     return (
         <div className="p-8 text-white min-h-screen">

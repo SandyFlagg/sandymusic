@@ -1,18 +1,11 @@
 'use client';
 
-import Link from 'next/link';
 import { useState } from 'react';
-import { ProductCard } from '@/app/shop/components';
-import { products } from '@/lib/shop-data';
 
 export default function ProducerSection() {
     const [templateStatus, setTemplateStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
     const [feedbackStatus, setFeedbackStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
 
-    // Filter for featured templates
-    const featuredTemplates = products.filter(p =>
-        ['1', '2', '3', '6'].includes(p.id)
-    ).slice(0, 6);
 
     const handleTemplateSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -32,7 +25,7 @@ export default function ProducerSection() {
             } else {
                 setTemplateStatus('error');
             }
-        } catch (error) {
+        } catch {
             setTemplateStatus('error');
         }
     };
@@ -60,7 +53,7 @@ export default function ProducerSection() {
             } else {
                 setFeedbackStatus('error');
             }
-        } catch (error) {
+        } catch {
             setFeedbackStatus('error');
         }
     };
@@ -68,7 +61,7 @@ export default function ProducerSection() {
     return (
         <section
             id="producer"
-            className="py-16 lg:py-24 px-6 border-b border-white/10 bg-[#141414]"
+            className="py-32 lg:py-40 px-6 border-b border-white/5 bg-[#0a0a0a]"
             style={{
                 backgroundImage: `linear-gradient(to right, #222 1px, transparent 1px),
                                 linear-gradient(to bottom, #222 1px, transparent 1px)`,
@@ -79,41 +72,22 @@ export default function ProducerSection() {
 
                 {/* Simplified Header */}
                 <div className="text-left max-w-3xl mb-16 animate-fade-in-up">
-                    <h2 className="text-6xl lg:text-8xl font-black uppercase tracking-tighter text-white leading-[0.9] mb-8">
+                    <h2 className="text-5xl lg:text-7xl font-black uppercase tracking-tighter text-white leading-none mb-8">
                         PRODUCER <br /> TOOLS
                     </h2>
                     <p className="text-xl text-gray-300 font-medium leading-relaxed mb-8 max-w-2xl">
                         Don&apos;t start from scratch. Use the actual project files, racks, and samples I use in my own released tracks.
                     </p>
-                    <div className="flex justify-start gap-6 text-xs font-bold uppercase tracking-widest text-gray-500">
-                        <span className="flex items-center gap-2">
-                            <span className="w-1.5 h-1.5 rounded-full bg-accent"></span> Ableton Project Files
-                        </span>
-                        <span className="flex items-center gap-2">
-                            <span className="w-1.5 h-1.5 rounded-full bg-accent"></span> Serum Presets
-                        </span>
-                    </div>
+
                 </div>
 
-                {/* Tighter Product Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6 mb-16">
-                    {featuredTemplates.map((product) => (
-                        <ProductCard key={product.id} product={product} />
-                    ))}
-                </div>
 
-                {/* View All - Centered */}
-                <div className="text-center mb-16">
-                    <Link href="/shop" className="inline-block px-8 py-3 border border-white/20 hover:border-white text-white font-black uppercase tracking-widest text-xs rounded-full hover:bg-white hover:text-black transition-all duration-300">
-                        View Full Shop
-                    </Link>
-                </div>
 
                 {/* Action Cards Grid */}
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
 
                     {/* Card 1: Free Template (Primary) */}
-                    <div className="relative group rounded-[2.5rem] bg-[#0A0A0A] border border-white/5 overflow-hidden">
+                    <div className="relative group rounded-[2.5rem] bg-[#111] border border-white/5 hover:border-white/10 hover:ring-1 hover:ring-white/5 overflow-hidden transition-all duration-500">
                         <div className="absolute inset-0 bg-gradient-to-br from-accent/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"></div>
 
                         <div className="relative z-10 p-10 lg:p-14 flex flex-col justify-between h-full">
@@ -152,7 +126,7 @@ export default function ProducerSection() {
                     </div>
 
                     {/* Card 2: Feedback (Secondary) */}
-                    <div className="relative group rounded-[2.5rem] bg-[#111] border border-white/5 overflow-hidden flex flex-col">
+                    <div className="relative group rounded-[2.5rem] bg-[#111] border border-white/5 hover:border-white/10 hover:ring-1 hover:ring-white/5 overflow-hidden flex flex-col transition-all duration-500">
                         <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 bg-repeat bg-[length:100px_100px] pointer-events-none mix-blend-overlay"></div>
 
                         <div className="relative z-10 p-10 lg:p-14 flex flex-col justify-between h-full">
@@ -167,7 +141,7 @@ export default function ProducerSection() {
 
                             {feedbackStatus === 'success' ? (
                                 <div className="w-full h-16 bg-blue-500/10 border border-blue-500/50 text-blue-500 flex items-center justify-center rounded-2xl font-bold uppercase tracking-widest">
-                                    Got it! I'll listen soon. 🎧
+                                    Got it! I&apos;ll listen soon. 🎧
                                 </div>
                             ) : (
                                 <form className="w-full flex flex-col gap-4" onSubmit={handleFeedbackSubmit}>

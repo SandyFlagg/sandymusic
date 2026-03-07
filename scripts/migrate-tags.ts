@@ -34,6 +34,7 @@ async function main() {
             data: {
                 categories: Array.from(newCategories),
                 tags: [] // Clear tags? Or keep them? Let's clear them to avoid duplication if we swap the display
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
             } as any
         });
 

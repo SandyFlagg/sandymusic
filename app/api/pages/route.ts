@@ -2,6 +2,7 @@
 import { NextResponse } from 'next/server';
 import prisma from '@/lib/prisma';
 import { z } from 'zod';
+import { auth } from '@clerk/nextjs/server';
 
 const pageSchema = z.object({
     title: z.string().min(1),
@@ -19,13 +20,18 @@ export async function GET() {
             orderBy: { updatedAt: 'desc' },
         });
         return NextResponse.json(pages);
-    } catch (error) {
+    } catch {
         return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
     }
 }
 
 export async function POST(req: Request) {
     try {
+        const { userId } = await auth();
+        if (!userId) {
+            return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+        }
+
         const json = await req.json();
         const body = pageSchema.parse(json);
 

@@ -177,3 +177,14 @@ model Page {
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
 }
+
+model Show {
+  id        String   @id @default(cuid())
+  venue     String
+  location  String   // e.g. "Sydney, AU"
+  date      DateTime
+  ticketUrl String?
+  isSoldOut Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

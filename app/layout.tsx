@@ -32,8 +32,7 @@ export const metadata: Metadata = {
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import HideOnAdmin from "../components/HideOnAdmin";
-import { CartProvider } from "./context/CartContext";
-import CartDrawer from "./components/CartDrawer";
+
 import { ClerkProvider } from "@clerk/nextjs";
 import { dark } from "@clerk/themes";
 
@@ -74,16 +73,13 @@ export default function RootLayout({
         >
           <JsonLd schema={personSchema} />
           <JsonLd schema={websiteSchema} />
-          <CartProvider>
-            <Navbar />
-            <CartDrawer />
-            <main className="flex-1">
-              {children}
-            </main>
-            <HideOnAdmin>
-              <Footer />
-            </HideOnAdmin>
-          </CartProvider>
+          <Navbar />
+          <main className="flex-1">
+            {children}
+          </main>
+          <HideOnAdmin>
+            <Footer />
+          </HideOnAdmin>
         </body>
       </html>
     </ClerkProvider>

@@ -3,10 +3,8 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { Product } from '@/lib/shop-data';
-import { useCart } from '../context/CartContext';
 
 export function ProductCard({ product }: { product: Product }) {
-    const { addToCart } = useCart();
 
     // Mock "Bought in past month" based on review count
     const boughtCount = product.reviewCount ? Math.floor(product.reviewCount * 12.5) : 50;
@@ -78,7 +76,7 @@ export function ProductCard({ product }: { product: Product }) {
                     onClick={(e) => {
                         e.preventDefault();
                         e.stopPropagation();
-                        addToCart(product);
+                        alert('Design System: Add to cart clicked');
                     }}
                     className="w-full cursor-pointer bg-[#ffd814] hover:bg-[#f7ca00] text-black border border-[#fcd200] font-medium text-sm py-2 rounded-full transition-all duration-200 shadow-sm hover:shadow-lg hover:brightness-110 active:scale-95 active:shadow-inner transform hover:-translate-y-0.5"
                 >
@@ -86,23 +84,6 @@ export function ProductCard({ product }: { product: Product }) {
                 </button>
             </div>
         </div >
-    );
-}
-
-function AddToCartButton({ product }: { product: Product }) {
-    const { addToCart } = useCart();
-
-    return (
-        <button
-            onClick={(e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                addToCart(product);
-            }}
-            className="text-xs font-bold uppercase tracking-widest bg-white text-black px-3 py-2 hover:bg-accent hover:text-white transition-colors rounded-sm"
-        >
-            Add to Cart
-        </button>
     );
 }
 

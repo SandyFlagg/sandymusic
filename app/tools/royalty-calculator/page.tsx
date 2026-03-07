@@ -52,7 +52,7 @@ export default function RoyaltyCalculatorPage() {
                                 </div>
                                 <div className="bg-[#111] border border-white/10 p-6 rounded-2xl hover:border-accent/50 transition-colors">
                                     <h3 className="text-xl font-bold text-white mb-2">🤝 Label Deals</h3>
-                                    <p className="text-gray-400 leading-relaxed">Fact-check advance offers against realistic streaming income. Don't sign away your rights for less than they're worth.</p>
+                                    <p className="text-gray-400 leading-relaxed">Fact-check advance offers against realistic streaming income. Don&apos;t sign away your rights for less than they&apos;re worth.</p>
                                 </div>
                                 <div className="bg-[#111] border border-white/10 p-6 rounded-2xl hover:border-accent/50 transition-colors">
                                     <h3 className="text-xl font-bold text-white mb-2">🎯 Set Goals</h3>
@@ -93,7 +93,7 @@ export default function RoyaltyCalculatorPage() {
                                         <span className="text-accent text-xl group-open:rotate-180 transition-transform">▼</span>
                                     </summary>
                                     <div className="px-6 pb-6 text-gray-400 leading-relaxed">
-                                        No. These are estimated averages. Your actual payout per stream (PPS) depends on the listener's country, subscription plan (Free vs. Premium), and your distributor's fees.
+                                        No. These are estimated averages. Your actual payout per stream (PPS) depends on the listener&apos;s country, subscription plan (Free vs. Premium), and your distributor&apos;s fees.
                                     </div>
                                 </details>
 
@@ -119,7 +119,7 @@ export default function RoyaltyCalculatorPage() {
                                         <span className="text-accent text-xl group-open:rotate-180 transition-transform">▼</span>
                                     </summary>
                                     <div className="px-6 pb-6 text-gray-400 leading-relaxed">
-                                        Apple Music is a paid-only service (no free ad-supported tier), which allows them to pay a higher rate per stream compared to Spotify's hybrid model.
+                                        Apple Music is a paid-only service (no free ad-supported tier), which allows them to pay a higher rate per stream compared to Spotify&apos;s hybrid model.
                                     </div>
                                 </details>
 

@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { ProductCard } from '@/app/shop/components';
+import { ProductCard } from './components';
 import { Product } from '@/lib/shop-data';
 
 // Mock product for display

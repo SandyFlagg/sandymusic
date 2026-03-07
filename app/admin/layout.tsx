@@ -40,6 +40,12 @@ export default function AdminLayout({
                             >
                                 Pages
                             </Link>
+                            <Link
+                                href="/admin/shows"
+                                className={`block px-4 py-2 rounded text-sm font-medium transition-colors ${pathname.startsWith('/admin/shows') ? 'text-white bg-white/5' : 'text-gray-400 hover:text-white hover:bg-white/5'}`}
+                            >
+                                Shows
+                            </Link>
                         </div>
                     </div>
 
@@ -68,24 +74,6 @@ export default function AdminLayout({
                         </div>
                     </div>
 
-                    {/* Shop Management */}
-                    <div>
-                        <h3 className="px-4 text-[10px] font-bold uppercase tracking-widest text-gray-600 mb-2">Shop</h3>
-                        <div className="space-y-1">
-                            <Link
-                                href="/admin/products"
-                                className={`block px-4 py-2 rounded text-sm font-medium transition-colors ${pathname === '/admin/products' ? 'text-white bg-white/5' : 'text-gray-400 hover:text-white hover:bg-white/5'}`}
-                            >
-                                All Products
-                            </Link>
-                            <Link
-                                href="/admin/products/new"
-                                className={`block px-4 py-2 rounded text-sm font-medium transition-colors ${pathname === '/admin/products/new' ? 'text-white bg-white/5' : 'text-gray-400 hover:text-white hover:bg-white/5'}`}
-                            >
-                                New Product
-                            </Link>
-                        </div>
-                    </div>
 
                     {/* Site */}
                     <div>

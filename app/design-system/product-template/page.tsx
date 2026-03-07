@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { Product } from '@/lib/shop-data';
-import { ProductGallery, ProductInfo, BuyBox, ReviewsSection } from '@/app/shop/product-components';
+import { ProductGallery, ProductInfo, BuyBox, ReviewsSection } from '../product-components';
 
 // ==========================================
 // 📋 PRODUCT DATA TEMPLATE

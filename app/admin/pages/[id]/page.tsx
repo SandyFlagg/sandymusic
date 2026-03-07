@@ -63,8 +63,8 @@ export default function EditPage({ params }: { params: Promise<{ id: string }> }
 
             router.push('/admin/pages');
             router.refresh();
-        } catch (err: any) {
-            alert(err.message);
+        } catch (err) {
+            if (err instanceof Error) alert(err.message);
         } finally {
             setSaving(false);
         }
@@ -79,7 +79,7 @@ export default function EditPage({ params }: { params: Promise<{ id: string }> }
             if (!res.ok) throw new Error('Failed to delete');
             router.push('/admin/pages');
             router.refresh();
-        } catch (err) {
+        } catch {
             alert('Error deleting page');
         }
     };

@@ -27,8 +27,7 @@ export default async function CategoryPage({ params }: { params: Promise<{ slug:
         }
     });
 
-    // Normalize for display if needed, but the structure matches mostly.
-    // We need to map the DB result to the shape expected by the JSX below.
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const normalizedPosts = categoryPosts.map((post: any) => ({
         id: post.id,
         slug: post.slug,

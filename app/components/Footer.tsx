@@ -42,7 +42,7 @@ export default function Footer() {
             <ul className="space-y-4 text-sm font-medium text-gray-300">
               <li><Link href="/#music" className="hover:text-accent transition-colors">Music</Link></li>
               <li><Link href="/#producer" className="hover:text-accent transition-colors">Producer Resources</Link></li>
-              <li><Link href="/shop" className="hover:text-accent transition-colors">Shop</Link></li>
+
               <li><Link href="/blog" className="hover:text-accent transition-colors">Blog</Link></li>
               <li><Link href="/#contact" className="hover:text-accent transition-colors">Contact</Link></li>
             </ul>

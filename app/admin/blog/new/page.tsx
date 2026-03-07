@@ -157,6 +157,7 @@ export default function NewBlogPostPage() {
                                             checked={formData.categories?.includes(cat) || false}
                                             onChange={(e) => {
                                                 const checked = e.target.checked;
+                                                // eslint-disable-next-line @typescript-eslint/no-explicit-any
                                                 setFormData((prev: any) => {
                                                     const current = prev.categories || [];
                                                     const updated = checked
@@ -269,7 +270,6 @@ export default function NewBlogPostPage() {
                                     <input
                                         type="text"
                                         value={point}
-                                        // eslint-disable-next-line @typescript-eslint/no-explicit-any
                                         onChange={(e) => {
                                             const newPoints = [...formData.keyPoints];
                                             newPoints[index] = e.target.value;
@@ -282,9 +282,8 @@ export default function NewBlogPostPage() {
                                     {formData.keyPoints.length > 1 && (
                                         <button
                                             type="button"
-                                            // eslint-disable-next-line @typescript-eslint/no-explicit-any
                                             onClick={() => {
-                                                const newPoints = formData.keyPoints.filter((_: any, i: number) => i !== index);
+                                                const newPoints = formData.keyPoints.filter((_: string, i: number) => i !== index);
                                                 // eslint-disable-next-line @typescript-eslint/no-explicit-any
                                                 setFormData((prev: any) => ({ ...prev, keyPoints: newPoints }));
                                             }}

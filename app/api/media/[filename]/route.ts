@@ -19,6 +19,7 @@ export async function PATCH(
     try {
         // Create if not exists logic is hard here without ID, so we try updateMany based on url ending with filename
         // Or just try to find by URL pattern
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         await (prisma as any).media.updateMany({
             where: {
                 url: {

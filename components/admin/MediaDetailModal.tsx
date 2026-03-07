@@ -39,7 +39,7 @@ export default function MediaDetailModal({ media, onClose, onUpdate }: MediaDeta
             } else {
                 alert('Failed to save metadata');
             }
-        } catch (e) {
+        } catch {
             alert('Error saving metadata');
         } finally {
             setSaving(false);

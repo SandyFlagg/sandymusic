@@ -8,6 +8,7 @@ async function main() {
             where: { slug },
             data: {
                 categories: ['Production'] // Setting a default category
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
             } as any
         });
         console.log(`Updated post: ${updated.title} with categories: ${updated.categories}`);

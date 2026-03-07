@@ -16,14 +16,14 @@ const HeroSection = () => {
                 <div className="absolute inset-0 z-0 opacity-30 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-gray-800 via-black to-black"></div>
 
                 {/* Text Content */}
-                <div className="relative z-20 text-center lg:text-left max-w-2xl lg:w-1/2 flex flex-col items-center lg:items-start">
-                    <h1 className="text-[15vw] md:text-[8vw] font-black leading-none tracking-tighter mb-6 text-white">
+                <div className="relative z-20 text-center lg:text-left max-w-2xl lg:w-1/2 flex flex-col items-center lg:items-start lg:pl-4">
+                    <h1 className="text-[15vw] md:text-[9vw] font-black leading-none tracking-tighter mb-4 text-white">
                         SANDY
                     </h1>
-                    <p className="text-xl md:text-2xl font-medium uppercase tracking-widest text-gray-500 mb-6">
+                    <p className="text-xl md:text-2xl font-black uppercase tracking-[0.2em] text-gray-500 mb-6">
                         Producer and DJ from Sydney, Australia 🇦🇺
                     </p>
-                    <p className="text-gray-300 max-w-lg mb-10 text-base md:text-lg leading-relaxed font-medium">
+                    <p className="text-gray-400 max-w-lg mb-10 text-base md:text-lg leading-relaxed font-medium">
                         Sharing music, tools, and what I’ve learnt along the way.
                     </p>
 
@@ -77,7 +77,7 @@ const HeroSection = () => {
                     {/* Card 1: Music */}
                     <Link
                         href="#music"
-                        className="group relative bg-[#080808] border border-white/10 rounded-[2rem] p-10 lg:p-14 min-h-[400px] flex flex-col justify-between overflow-hidden hover:border-accent/40 hover:bg-[#0a0a0a] hover:shadow-[0_0_40px_-10px_rgba(255,85,0,0.15)] transition-all duration-500 hover:-translate-y-1"
+                        className="group relative bg-[#111] border border-white/5 rounded-[2.5rem] p-10 lg:p-14 min-h-[400px] flex flex-col justify-between overflow-hidden hover:border-white/10 hover:ring-1 hover:ring-white/5 hover:bg-[#151515] hover:shadow-[0_0_60px_-15px_rgba(255,85,0,0.15)] transition-all duration-500 hover:-translate-y-1"
                         onMouseEnter={() => setHoveredIntent('music')}
                         onMouseLeave={() => setHoveredIntent(null)}
                     >
@@ -93,7 +93,7 @@ const HeroSection = () => {
 
                         <div className="relative z-10 flex flex-col gap-6">
                             <div className="w-16 h-1 bg-accent mb-2 group-hover:w-24 transition-all duration-500"></div>
-                            <h3 className="text-5xl lg:text-7xl font-black text-white leading-[0.9] tracking-tighter">
+                            <h3 className="text-5xl lg:text-7xl font-black text-white leading-none tracking-tighter">
                                 I&apos;M HERE <br />
                                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-400 group-hover:from-white group-hover:to-white transition-all duration-500">FOR THE MUSIC</span>
                             </h3>
@@ -120,7 +120,7 @@ const HeroSection = () => {
                     {/* Card 2: Producer */}
                     <Link
                         href="#producer"
-                        className="group relative bg-[#080808] border border-white/10 rounded-[2rem] p-10 lg:p-14 min-h-[400px] flex flex-col justify-between overflow-hidden hover:border-white/30 hover:bg-[#0a0a0a] hover:shadow-[0_0_40px_-10px_rgba(255,255,255,0.05)] transition-all duration-500 hover:-translate-y-1"
+                        className="group relative bg-[#111] border border-white/5 rounded-[2.5rem] p-10 lg:p-14 min-h-[400px] flex flex-col justify-between overflow-hidden hover:border-white/10 hover:ring-1 hover:ring-white/5 hover:bg-[#151515] hover:shadow-[0_0_60px_-15px_rgba(255,255,255,0.05)] transition-all duration-500 hover:-translate-y-1"
                         onMouseEnter={() => setHoveredIntent('producer')}
                         onMouseLeave={() => setHoveredIntent(null)}
                     >
@@ -138,7 +138,7 @@ const HeroSection = () => {
 
                         <div className="relative z-10 flex flex-col gap-6">
                             <div className="w-16 h-1 bg-gray-600 group-hover:bg-white transition-all duration-500 mb-2 group-hover:w-24"></div>
-                            <h3 className="text-5xl lg:text-7xl font-black text-white leading-[0.9] tracking-tighter">
+                            <h3 className="text-5xl lg:text-7xl font-black text-white leading-none tracking-tighter">
                                 I&apos;M A <br />
                                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-gray-400 to-gray-600 group-hover:from-white group-hover:to-gray-300 transition-all duration-500">PRODUCER</span>
                             </h3>

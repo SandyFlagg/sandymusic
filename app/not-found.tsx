@@ -36,7 +36,7 @@ export default function NotFound() {
                             Session Corrupted
                         </h2>
                         <p className="text-gray-400 text-lg md:text-xl font-medium font-mono max-w-md">
-                            The track you're looking for has been deleted or moved to a different folder.
+                            The track you&apos;re looking for has been deleted or moved to a different folder.
                         </p>
                     </div>
 

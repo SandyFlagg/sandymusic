@@ -4,7 +4,7 @@ import React from 'react';
 
 const ContactSection = () => {
     return (
-        <section id="contact" className="py-24 lg:py-48 px-6 border-t border-white/10 bg-[#111] relative overflow-hidden">
+        <section id="contact" className="py-24 lg:py-32 px-6 border-t border-white/5 bg-[#0a0a0a] relative overflow-hidden">
             <div className="container mx-auto max-w-7xl">
 
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-start">
@@ -14,7 +14,7 @@ const ContactSection = () => {
                         <div className="absolute -top-24 left-0 text-[12rem] font-black text-white/[0.02] select-none pointer-events-none leading-none">
                             06
                         </div>
-                        <h2 className="text-6xl md:text-8xl font-black uppercase tracking-tighter mb-8 relative z-10 text-white">
+                        <h2 className="text-5xl lg:text-7xl font-black uppercase tracking-tighter mb-8 relative z-10 text-white leading-none">
                             Get In <br /> Touch
                         </h2>
                         <p className="text-xl text-gray-400 mb-12 max-w-md leading-relaxed">
@@ -37,7 +37,7 @@ const ContactSection = () => {
                     </div>
 
                     {/* Right: Form */}
-                    <div className="bg-[#1a1a1a] p-8 md:p-12 rounded-[2.5rem] border border-white/5 relative group">
+                    <div className="bg-[#111] p-8 md:p-12 rounded-[2.5rem] border border-white/10 relative group">
                         <div className="absolute inset-0 bg-gradient-to-b from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none rounded-[2.5rem]"></div>
 
                         <form className="space-y-6 relative z-10" onSubmit={(e) => {

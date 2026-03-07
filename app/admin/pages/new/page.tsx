@@ -35,8 +35,8 @@ export default function NewPage() {
 
             router.push('/admin/pages');
             router.refresh();
-        } catch (err: any) {
-            alert(err.message);
+        } catch (err) {
+            if (err instanceof Error) alert(err.message);
         } finally {
             setSaving(false);
         }

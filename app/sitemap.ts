@@ -11,7 +11,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         '/about',
         '/contact',
         '/music',
-        '/shop',
         '/blog',
     ].map((route) => ({
         url: `${baseUrl}${route}`,
@@ -33,19 +32,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         priority: 0.7,
     }))
 
-    // 3. Fetch Products
-    const products = await prisma.product.findMany({
-        where: { soldOut: false }, // Optional: only show available products? Or all. Let's show all for SEO.
-        select: { slug: true, updatedAt: true },
-    })
-
-    const productRoutes = products.map((product) => ({
-        url: `${baseUrl}/shop/${product.slug}`, // Verify this is the correct route
-        lastModified: product.updatedAt,
-        changeFrequency: 'weekly' as const,
-        priority: 0.9,
-    }))
-
     // 4. Fetch Categories (Optional, but good for SEO)
     // Hardcoding based on known categories for now, or could query distinct categories
     const categories = ['Production', 'DJing', 'Music Marketing', 'Backstage']
@@ -56,5 +42,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         priority: 0.6,
     }))
 
-    return [...staticRoutes, ...blogRoutes, ...productRoutes, ...categoryRoutes]
+    return [...staticRoutes, ...blogRoutes, ...categoryRoutes]
 }

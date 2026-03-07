@@ -3,9 +3,15 @@ import { writeFile, mkdir, readdir, stat } from 'fs/promises';
 import { join } from 'path';
 import prisma from '@/lib/prisma';
 import { getFileMetadata, updateFileMetadata } from '@/lib/local-media-metadata';
+import { auth } from '@clerk/nextjs/server';
 
 export async function POST(request: NextRequest) {
     try {
+        const { userId } = await auth();
+        if (!userId) {
+            return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+        }
+
         const data = await request.formData();
         const file: File | null = data.get('file') as unknown as File;
         const category = data.get('category') as string || 'uncategorized';
@@ -21,7 +27,7 @@ export async function POST(request: NextRequest) {
         const uploadDir = join(process.cwd(), 'public/uploads');
         try {
             await mkdir(uploadDir, { recursive: true });
-        } catch (e) {
+        } catch {
             // Ignore if exists
         }
 
@@ -36,9 +42,9 @@ export async function POST(request: NextRequest) {
         await updateFileMetadata(filename, { category });
 
         // Save to Database (Best Effort)
-        let mediaRecord;
         try {
-            mediaRecord = await (prisma as any).media.create({
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            await (prisma as any).media.create({
                 data: {
                     filename: file.name, // Original name
                     url: publicUrl, // System path
@@ -72,13 +78,14 @@ export async function POST(request: NextRequest) {
 export async function GET() {
     try {
         // Try DB first
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const media = await (prisma as any).media.findMany({
             orderBy: { createdAt: 'desc' }
         });
         return NextResponse.json({ success: true, media });
     } catch (error) {
         // Fallback to filesystem
-        console.warn("DB failed, falling back to filesystem");
+        console.warn("DB failed, falling back to filesystem", error);
         try {
             const uploadDir = join(process.cwd(), 'public/uploads');
             const files = await readdir(uploadDir);
@@ -104,12 +111,14 @@ export async function GET() {
             }));
 
             // Filter nulls and sort
-            const validMedia = media.filter(Boolean).sort((a: any, b: any) =>
-                new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-            );
+            const validMedia = media.filter(Boolean).sort((a, b) => {
+                const dateA = a && a.createdAt ? new Date(a.createdAt).getTime() : 0;
+                const dateB = b && b.createdAt ? new Date(b.createdAt).getTime() : 0;
+                return dateB - dateA;
+            });
 
             return NextResponse.json({ success: true, media: validMedia });
-        } catch (fsError) {
+        } catch {
             return NextResponse.json({ success: false, media: [] });
         }
     }

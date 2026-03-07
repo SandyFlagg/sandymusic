@@ -7,7 +7,7 @@ const navItems = [
   { href: '/', label: 'Home' },
   { href: '/music', label: 'Music' },
   { href: '/shows', label: 'Shows' },
-  { href: '/shop', label: 'Shop' },
+
   { href: '/contact', label: 'Contact' },
 ];
 
@@ -23,8 +23,8 @@ export default function Nav() {
               <Link
                 href={item.href}
                 className={`block py-2 text-sm font-bold uppercase tracking-widest transition-all hover:text-accent ${pathname === item.href
-                    ? 'text-foreground border-b-2 border-accent'
-                    : 'text-muted hover:text-foreground'
+                  ? 'text-foreground border-b-2 border-accent'
+                  : 'text-muted hover:text-foreground'
                   }`}
               >
                 {item.label}

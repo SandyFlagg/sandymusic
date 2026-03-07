@@ -9,6 +9,7 @@ async function main() {
             where: { slug },
             data: {
                 categories: ['Production', 'Music Marketing']
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
             } as any
         });
 

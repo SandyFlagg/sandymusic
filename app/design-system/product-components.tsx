@@ -3,8 +3,6 @@
 import { useState, useRef, useEffect } from 'react';
 import Image from 'next/image';
 import { Product } from '@/lib/shop-data';
-import { useCart } from '../context/CartContext';
-
 // --- 1. Product Gallery (Now with Audio Preview) ---
 export function ProductGallery({ product }: { product: Product }) {
     const images = product.images && product.images.length > 0 ? product.images : [product.image];
@@ -141,8 +139,6 @@ export function ProductInfo({ product }: { product: Product }) {
 
 // --- 3. Buy Box (Right Sticky) ---
 export function BuyBox({ product }: { product: Product }) {
-    const { addToCart } = useCart();
-
     return (
         <div className="border border-white/10 rounded-2xl p-6 shadow-2xl bg-[#0A0A0A] sticky top-24 backdrop-blur-md">
             <div className="mb-6">
@@ -158,7 +154,7 @@ export function BuyBox({ product }: { product: Product }) {
 
             <div className="space-y-4">
                 <button
-                    onClick={() => addToCart(product)}
+                    onClick={() => alert('Design System: Add to cart clicked')}
                     className="w-full bg-accent hover:brightness-110 active:scale-[0.98] text-black font-bold py-4 rounded-full shadow-lg shadow-accent/20 transition-all duration-200 transform hover:-translate-y-1 text-lg"
                 >
                     Add to Cart

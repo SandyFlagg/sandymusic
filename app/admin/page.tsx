@@ -27,19 +27,6 @@ export default function AdminDashboard() {
                     </Link>
                 </div>
 
-                <div className="bg-[#111] border border-white/10 p-8 rounded-2xl group hover:border-accent/50 transition-colors">
-                    <div className="flex justify-between items-start mb-4">
-                        <div className="p-3 bg-white/5 rounded-lg text-blue-500">
-                            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
-                        </div>
-                        <span className="text-xs font-bold uppercase tracking-widest text-gray-500">Shop</span>
-                    </div>
-                    <div className="text-3xl font-black text-white mb-1">Products</div>
-                    <div className="text-sm text-gray-400 mb-6">Manage your inventory</div>
-                    <Link href="/admin/products/new" className="text-blue-500 text-xs font-bold uppercase tracking-widest hover:text-white transition-colors flex items-center gap-2">
-                        Add Product →
-                    </Link>
-                </div>
 
                 <div className="bg-[#111] border border-white/10 p-8 rounded-2xl group hover:border-accent/50 transition-colors">
                     <div className="flex justify-between items-start mb-4">
