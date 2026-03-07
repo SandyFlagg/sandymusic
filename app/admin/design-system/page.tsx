@@ -358,7 +358,7 @@ export default function DesignSystemPage() {
                         09. Page Templates
                     </h2>
                     <div className="grid md:grid-cols-2 gap-8">
-                        <Link href="/design-system/product-template" className="group block bg-[#111] border border-white/10 rounded-xl overflow-hidden hover:border-accent transition-colors">
+                        <Link href="/admin/design-system/product-template" className="group block bg-[#111] border border-white/10 rounded-xl overflow-hidden hover:border-accent transition-colors">
                             <div className="h-48 bg-gradient-to-br from-gray-800 to-black flex items-center justify-center group-hover:from-gray-700 transition-colors">
                                 <span className="text-4xl">🛍️</span>
                             </div>
@@ -370,7 +370,7 @@ export default function DesignSystemPage() {
                             </div>
                         </Link>
 
-                        <Link href="/design-system/blog-template" className="group block bg-[#111] border border-white/10 rounded-xl overflow-hidden hover:border-accent transition-colors">
+                        <Link href="/admin/design-system/blog-template" className="group block bg-[#111] border border-white/10 rounded-xl overflow-hidden hover:border-accent transition-colors">
                             <div className="h-48 bg-gradient-to-br from-gray-800 to-black flex items-center justify-center group-hover:from-gray-700 transition-colors">
                                 <span className="text-4xl">📝</span>
                             </div>
