@@ -24,7 +24,7 @@ const HeroSection = () => {
                         Producer and DJ from Sydney, Australia 🇦🇺
                     </p>
                     <p className="text-gray-400 max-w-lg mb-10 text-base md:text-lg leading-relaxed font-medium">
-                        Sharing music, tools, and what I’ve learnt along the way.
+                        Making club music and sharing what I learn along the way trying to make it as a DJ.
                     </p>
 
                     {/* Social Row */}
