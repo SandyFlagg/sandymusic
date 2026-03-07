@@ -208,61 +208,65 @@ export default function BlogPostTemplatePage() {
             </nav>
 
             {/* Hero Header */}
-            <header className="relative min-h-[80vh] flex flex-col lg:flex-row border-b border-white/10">
-                {/* Left Content */}
-                <div className="flex-1 flex flex-col justify-center px-6 lg:px-20 py-20 lg:py-0 relative z-20 bg-black">
-                    <div className="max-w-xl">
-                        {/* Breadcrumb / Category */}
-                        <div className="flex items-center gap-3 mb-8">
-                            {['Production', 'DJing'].map((cat) => (
-                                <Link
-                                    key={cat}
-                                    href="#"
-                                    className="text-accent font-bold text-xs uppercase tracking-widest border border-accent/20 px-3 py-1 rounded-full bg-accent/5 hover:bg-accent/10 hover:text-white transition-colors"
-                                >
-                                    {cat}
-                                </Link>
-                            ))}
+            <header className="relative pt-40 pb-24 px-6 overflow-hidden border-b border-white/10">
+                <div className="absolute inset-0 z-0 opacity-20 bg-[radial-gradient(circle_at_top_right,_var(--tw-gradient-stops))] from-accent/40 via-transparent to-transparent"></div>
+
+                <div className="container mx-auto max-w-7xl relative z-10">
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                        <div className="text-left">
+                            <div className="flex justify-start gap-3 mb-8">
+                                {['Production', 'DJing'].map((cat) => (
+                                    <Link
+                                        key={cat}
+                                        href="#"
+                                        className="text-accent font-bold text-xs uppercase tracking-widest border border-accent/20 px-3 py-1 rounded-full bg-accent/5 hover:bg-accent/10 hover:text-white transition-colors"
+                                    >
+                                        {cat}
+                                    </Link>
+                                ))}
+                            </div>
+
+                            <h1 id="main-title" className="text-5xl md:text-7xl font-black uppercase tracking-tighter leading-[0.9] mb-8">
+                                The Art of the<br />Perfect Kick Drum
+                            </h1>
+
+                            <div className="flex items-center justify-start gap-8 text-sm text-gray-400">
+                                <div className="flex items-center gap-3">
+                                    <Image
+                                        src="/images/sandy-author.jpg"
+                                        alt="Sandy Flagg"
+                                        width={40}
+                                        height={40}
+                                        className="rounded-full border border-white/10 object-cover aspect-square"
+                                    />
+                                    <div className="text-left">
+                                        <div className="text-white font-bold uppercase tracking-widest text-xs">Sandy Flagg</div>
+                                        <div className="text-[10px] uppercase tracking-widest">Music Producer & DJ</div>
+                                    </div>
+                                </div>
+                                <div className="h-8 w-[1px] bg-white/10"></div>
+                                <div className="text-left">
+                                    <div className="text-white font-bold uppercase tracking-widest text-xs">Jun 18, 2025</div>
+                                    <div className="text-[10px] uppercase tracking-widest">Published</div>
+                                </div>
+                                <div className="h-8 w-[1px] bg-white/10"></div>
+                                <div className="text-left">
+                                    <div className="text-white font-bold uppercase tracking-widest text-xs">8 min read</div>
+                                </div>
+                            </div>
                         </div>
 
-                        <h1 className="text-5xl lg:text-7xl font-black uppercase tracking-tighter mb-8 leading-[0.9]">
-                            The Art of the<br />Perfect Kick Drum
-                        </h1>
-
-                        <div className="flex items-center gap-6 mt-8">
+                        {/* Featured Image - Second Grid Column */}
+                        <div className="relative aspect-video lg:aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl border border-white/10 group">
                             <Image
-                                src="/images/sandy-author.jpg"
-                                alt="Sandy Flagg"
-                                width={48}
-                                height={48}
-                                className="rounded-full border border-white/10"
+                                src="/images/blog-hero-kick.jpg"
+                                alt="Studio view"
+                                fill
+                                className="object-cover transition-transform duration-700 group-hover:scale-105"
+                                priority
                             />
-                            <div>
-                                <div className="text-white font-bold uppercase tracking-widest text-xs mb-1">Sandy Flagg</div>
-                                <div className="text-gray-500 text-[10px] uppercase tracking-widest">Founder & CEO</div>
-                            </div>
-                            <div className="h-8 w-[1px] bg-white/10 mx-2"></div>
-                            <div className="text-right">
-                                <div className="text-gray-400 font-bold uppercase tracking-widest text-xs mb-1">Jun 18, 2025</div>
-                                <div className="text-gray-600 text-[10px] uppercase tracking-widest">Last Updated</div>
-                            </div>
                         </div>
-
-                        <button className="mt-12 border border-white/20 text-white hover:bg-white hover:text-black font-bold uppercase tracking-widest text-xs px-8 py-4 rounded-full transition-all duration-300">
-                            Read Article
-                        </button>
                     </div>
-                </div>
-
-                {/* Right Image */}
-                <div className="flex-1 relative min-h-[400px] lg:min-h-full">
-                    <Image
-                        src="/images/blog-hero-kick.jpg"
-                        alt="Studio view"
-                        fill
-                        className="object-cover"
-                        priority
-                    />
                 </div>
             </header>
 
@@ -305,6 +309,25 @@ export default function BlogPostTemplatePage() {
 
                     {/* Center: Article */}
                     <article className="lg:col-span-7 prose prose-invert prose-lg max-w-none">
+                        {/* Key Takeaways */}
+                        <div className="bg-[#111] border border-accent/20 rounded-xl p-8 mb-12 relative overflow-hidden">
+                            <div className="absolute top-0 left-0 w-1 h-full bg-accent"></div>
+                            <h3 className="text-accent font-black uppercase tracking-widest text-sm mb-6 flex items-center gap-2">
+                                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                                </svg>
+                                Key Takeaways
+                            </h3>
+                            <ul className="space-y-4">
+                                {['Start with the right sample — processing can only enhance, not fix', 'Tune your kick to the root note or fifth of your track', 'Manage frequency conflicts between kick and bass with sidechain or EQ carving'].map((point, idx) => (
+                                    <li key={idx} className="flex items-start gap-4 text-gray-300">
+                                        <span className="text-accent font-bold mt-1 text-xs">{String(idx + 1).padStart(2, '0')}.</span>
+                                        <span className="leading-relaxed font-medium">{point}</span>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+
                         <p className="lead text-xl text-gray-300 leading-relaxed mb-8 font-medium">
                             The kick drum is the heartbeat of electronic music. It drives the rhythm, anchors the low end, and defines the genre. But getting it right is often harder than it seems.
                         </p>
