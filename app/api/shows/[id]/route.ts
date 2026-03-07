@@ -9,7 +9,7 @@ export async function PUT(request: Request, context: any) {
             return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
         }
 
-        const id = context.params.id;
+        const { id } = await context.params;
         const body = await request.json();
         const { venue, location, date, ticketUrl, isSoldOut } = body;
 
@@ -42,7 +42,7 @@ export async function DELETE(request: Request, context: any) {
             return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
         }
 
-        const id = context.params.id;
+        const { id } = await context.params;
 
         await prisma.show.delete({
             where: { id },
