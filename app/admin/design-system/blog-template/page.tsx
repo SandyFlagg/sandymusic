@@ -202,7 +202,7 @@ export default function BlogPostTemplatePage() {
 
             {/* Navigation Placeholder */}
             <nav className="fixed top-0 left-0 w-full z-50 bg-black/80 backdrop-blur-md border-b border-white/10 h-20 flex items-center px-6">
-                <Link href="/design-system" className="text-sm font-bold uppercase tracking-widest text-gray-400 hover:text-white">
+                <Link href="/admin/design-system" className="text-sm font-bold uppercase tracking-widest text-gray-400 hover:text-white">
                     ← Back to Design System
                 </Link>
             </nav>

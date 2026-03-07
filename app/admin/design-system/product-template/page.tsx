@@ -57,7 +57,7 @@ export default function ProductTemplatePage() {
             {/* Design System Header */}
             <div className="fixed top-0 left-0 w-full z-50 bg-neutral-900 border-b border-white/10 h-10 flex items-center px-4 justify-between">
                 <span className="text-xs font-mono text-gray-400">DESIGN SYSTEM: PRODUCT TEMPLATE</span>
-                <Link href="/design-system" className="text-xs hover:text-white text-gray-500">
+                <Link href="/admin/design-system" className="text-xs hover:text-white text-gray-500">
                     ← Back to System
                 </Link>
             </div>
