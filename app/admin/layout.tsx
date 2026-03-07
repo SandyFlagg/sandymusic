@@ -74,6 +74,18 @@ export default function AdminLayout({
                         </div>
                     </div>
 
+                    {/* Tools */}
+                    <div>
+                        <h3 className="px-4 text-[10px] font-bold uppercase tracking-widest text-gray-600 mb-2">Tools</h3>
+                        <div className="space-y-1">
+                            <Link
+                                href="/admin/design-system"
+                                className={`block px-4 py-2 rounded text-sm font-medium transition-colors ${pathname.startsWith('/admin/design-system') ? 'text-white bg-white/5' : 'text-gray-400 hover:text-white hover:bg-white/5'}`}
+                            >
+                                Design System
+                            </Link>
+                        </div>
+                    </div>
 
                     {/* Site */}
                     <div>
