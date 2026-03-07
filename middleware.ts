@@ -1,11 +1,18 @@
 import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
+import { NextResponse } from "next/server";
 
 const isProtectedRoute = createRouteMatcher([
     '/admin(.*)',
 ]);
 
 export default clerkMiddleware(async (auth, req) => {
-    if (isProtectedRoute(req)) await auth.protect();
+    if (isProtectedRoute(req)) {
+        const { userId } = await auth.protect();
+        const adminId = process.env.ADMIN_USER_ID;
+        if (adminId && userId !== adminId) {
+            return new NextResponse('Forbidden', { status: 403 });
+        }
+    }
 });
 
 export const config = {
