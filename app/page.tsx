@@ -70,7 +70,7 @@ export default async function Home() {
                 </div>
               </div>
 
-              <div className="flex-1 flex flex-col justify-center">
+              <div className="flex-1 flex flex-col justify-start mt-8">
                 {upcomingShows.length === 0 ? (
                   <div className="group cursor-default">
                     <p className="text-2xl font-bold text-white mb-6 group-hover:text-accent transition-colors duration-300">
