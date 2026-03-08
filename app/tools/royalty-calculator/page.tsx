@@ -4,6 +4,9 @@ import Navbar from '@/app/components/Navbar';
 export const metadata = {
     title: 'Streaming Royalty Calculator | Sandy Music',
     description: 'Estimate your music earnings from Spotify, Apple Music, and SoundCloud streams. Free tool for independent artists.',
+    alternates: {
+        canonical: '/tools/royalty-calculator',
+    },
     openGraph: {
         title: 'Streaming Royalty Calculator | Sandy Music',
         description: 'See how much your streams are worth. Calculate earnings from Spotify, Apple Music, and SoundCloud.',

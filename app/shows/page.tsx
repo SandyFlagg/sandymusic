@@ -3,6 +3,9 @@ import type { Metadata } from 'next';
 export const metadata: Metadata = {
   title: 'Shows - Sandy Music',
   description: 'Upcoming shows and tour dates for Sandy Music. Find tickets and venue information for live performances.',
+  alternates: {
+    canonical: '/shows',
+  },
   openGraph: {
     title: 'Shows - Sandy Music',
     description: 'Upcoming shows and tour dates for Sandy Music. Find tickets and venue information for live performances.',

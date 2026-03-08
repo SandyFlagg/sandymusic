@@ -9,6 +9,18 @@ export async function generateStaticParams() {
     return categories.map((slug) => ({ slug }));
 }
 
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
+    const { slug } = await params;
+    const categoryName = slug.charAt(0).toUpperCase() + slug.slice(1);
+    return {
+        title: `${categoryName} Blog Posts - Sandy Music`,
+        description: `Read articles and guides related to ${categoryName} on the Sandy Music blog.`,
+        alternates: {
+            canonical: `/blog/category/${slug}`,
+        },
+    };
+}
+
 export default async function CategoryPage({ params }: { params: Promise<{ slug: string }> }) {
     const { slug } = await params;
     const categoryName = slug.charAt(0).toUpperCase() + slug.slice(1);

@@ -6,7 +6,13 @@ import LatestExportsCarousel from './components/LatestExportsCarousel';
 import HeroSection from './components/HeroSection';
 import NewsletterSection from './components/NewsletterSection';
 import ContactSection from './components/ContactSection';
+import type { Metadata } from 'next';
 
+export const metadata: Metadata = {
+  alternates: {
+    canonical: '/',
+  },
+};
 
 export default async function Home() {
 

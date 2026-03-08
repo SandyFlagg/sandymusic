@@ -4,6 +4,9 @@ import ContactForm from './ContactForm';
 export const metadata: Metadata = {
   title: 'Contact - Sandy Music',
   description: 'Get in touch with Sandy Music. For booking, press inquiries, or general questions, reach out through our contact form.',
+  alternates: {
+    canonical: '/contact',
+  },
   openGraph: {
     title: 'Contact - Sandy Music',
     description: 'Get in touch with Sandy Music. For booking, press inquiries, or general questions, reach out through our contact form.',

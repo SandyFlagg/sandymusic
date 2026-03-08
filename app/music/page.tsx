@@ -3,6 +3,9 @@ import type { Metadata } from 'next';
 export const metadata: Metadata = {
   title: 'Music - Sandy Music',
   description: 'Browse and listen to music by Sandy Music. Discover albums, singles, and exclusive releases.',
+  alternates: {
+    canonical: '/music',
+  },
   openGraph: {
     title: 'Music - Sandy Music',
     description: 'Browse and listen to music by Sandy Music. Discover albums, singles, and exclusive releases.',
