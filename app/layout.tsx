@@ -47,9 +47,11 @@ const personSchema: WithContext<Person> = {
   url: "https://www.sandymusic.com",
   jobTitle: "Music Producer & DJ",
   sameAs: [
-    "https://instagram.com/sandyflagg",
-    "https://soundcloud.com/sandyflagg",
-    // Add other social links
+    "https://www.youtube.com/@SANDY-xp6pt",
+    "https://www.instagram.com/sandymusic___/",
+    "https://www.tiktok.com/@sandymusic__",
+    "https://linktr.ee/sandy.music",
+    "https://soundcloud.com/sandyflagg"
   ]
 };
 
