@@ -92,39 +92,54 @@ export default async function Home() {
                     </form>
                   </div>
                 ) : (
-                  <div className="space-y-4">
-                    {upcomingShows.map((show: any) => (
-                      <div key={show.id} className="group relative bg-[#1a1a1a] border border-white/5 rounded-2xl p-6 hover:border-accent transition-all duration-300 overflow-hidden">
-                        <div className="absolute inset-0 bg-gradient-to-r from-accent/0 to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
-                        <div className="relative z-10 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-                          <div>
-                            <div className="flex items-center gap-3 mb-2">
-                              <span className="text-accent font-mono text-sm font-bold tracking-widest uppercase">{new Date(show.date).toLocaleDateString(undefined, { month: 'short', day: 'numeric' })}</span>
-                              {show.isSoldOut && (
-                                <span className="bg-red-500/10 text-red-500 text-[10px] uppercase font-black tracking-widest px-2 py-0.5 rounded-full border border-red-500/20">Sold Out</span>
-                              )}
+                  <div className="space-y-1">
+                    {upcomingShows.map((show: any) => {
+                      const showDate = new Date(show.date);
+                      const month = showDate.toLocaleDateString('en-US', { month: 'short' }).toUpperCase();
+                      const day = showDate.toLocaleDateString('en-US', { day: '2-digit' });
+
+                      return (
+                        <div key={show.id} className="group flex flex-col sm:flex-row justify-between items-start sm:items-center gap-6 py-6 border-b border-white/5 last:border-0 hover:bg-white/[0.02] -mx-4 px-4 sm:-mx-6 sm:px-6 rounded-2xl transition-all duration-500">
+                          <div className="flex items-center gap-6 sm:gap-8">
+                            {/* Date block */}
+                            <div className="flex flex-col items-center justify-center min-w-[3.5rem] opacity-50 group-hover:opacity-100 group-hover:scale-110 transition-all duration-500 origin-center">
+                              <span className="text-accent text-xs font-black tracking-widest uppercase mb-1">{month}</span>
+                              <span className="text-3xl sm:text-4xl font-black text-white leading-none">{day}</span>
                             </div>
-                            <h4 className="text-xl font-black text-white">{show.venue}</h4>
-                            <p className="text-gray-400 text-sm mt-1">{show.location}</p>
+
+                            {/* Venue block */}
+                            <div className="flex flex-col">
+                              <div className="flex items-center gap-3">
+                                <h4 className="text-xl sm:text-2xl font-black text-white uppercase tracking-tight group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-gray-400 transition-all duration-300">{show.venue}</h4>
+                                {show.isSoldOut && (
+                                  <span className="bg-red-500/10 text-red-500 text-[10px] uppercase font-black tracking-widest px-2 py-0.5 rounded-sm border border-red-500/20 whitespace-nowrap">Sold Out</span>
+                                )}
+                              </div>
+                              <p className="text-gray-500 text-sm font-medium mt-1 group-hover:text-gray-400 transition-colors uppercase tracking-wide">{show.location}</p>
+                            </div>
                           </div>
 
-                          {show.ticketUrl && !show.isSoldOut ? (
-                            <a
-                              href={show.ticketUrl}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="w-full sm:w-auto text-center px-6 py-3 rounded-xl bg-white text-black font-bold uppercase tracking-widest text-xs hover:bg-accent transition-colors shrink-0"
-                            >
-                              Tickets
-                            </a>
-                          ) : (
-                            <div className="w-full sm:w-auto text-center px-6 py-3 rounded-xl bg-white/5 text-gray-500 font-bold uppercase tracking-widest text-xs cursor-not-allowed shrink-0">
-                              {show.isSoldOut ? 'Sold Out' : 'Invite Only'}
-                            </div>
-                          )}
+                          {/* Action block */}
+                          <div className="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end shrink-0">
+                            {show.ticketUrl && !show.isSoldOut ? (
+                              <a
+                                href={show.ticketUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="group/btn relative overflow-hidden bg-white text-black font-black uppercase tracking-widest text-xs px-8 py-4 rounded-full hover:shadow-[0_0_20px_rgba(255,255,255,0.1)] transition-all duration-500 inline-block text-center w-full sm:w-auto"
+                              >
+                                <span className="relative z-10 transition-colors duration-500 group-hover/btn:text-white">Tickets</span>
+                                <div className="absolute inset-0 h-full w-full scale-x-0 group-hover/btn:scale-x-100 origin-left transition-transform duration-500 bg-accent ease-out"></div>
+                              </a>
+                            ) : (
+                              <div className="w-full sm:w-auto text-center px-8 py-4 rounded-full bg-white/5 text-gray-600 font-black uppercase tracking-widest text-xs cursor-not-allowed">
+                                {show.isSoldOut ? 'Sold Out' : 'Invite Only'}
+                              </div>
+                            )}
+                          </div>
                         </div>
-                      </div>
-                    ))}
+                      );
+                    })}
                   </div>
                 )}
               </div>
