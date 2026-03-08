@@ -1,6 +1,15 @@
 import { currentUser } from '@clerk/nextjs/server';
 import Link from 'next/link';
 
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+    title: 'Dashboard | Sandy Music',
+    alternates: {
+        canonical: 'https://www.sandymusic.com/dashboard',
+    },
+};
+
 export default async function DashboardPage() {
     const user = await currentUser();
 

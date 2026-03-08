@@ -1,5 +1,14 @@
 import Link from 'next/link';
 
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+    title: '404 - Not Found | Sandy Music',
+    alternates: {
+        canonical: 'https://www.sandymusic.com/not-found',
+    },
+};
+
 export default function NotFound() {
     return (
         <div className="min-h-screen bg-black text-white flex flex-col items-center justify-center relative overflow-hidden font-sans selection:bg-red-500 selection:text-white">

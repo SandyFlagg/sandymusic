@@ -1,5 +1,14 @@
 import { SignIn } from "@clerk/nextjs";
 
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+    title: 'Sign In | Sandy Music',
+    alternates: {
+        canonical: 'https://www.sandymusic.com/sign-in',
+    },
+};
+
 export default function Page() {
     return (
         <div className="min-h-screen flex items-center justify-center bg-black py-20">

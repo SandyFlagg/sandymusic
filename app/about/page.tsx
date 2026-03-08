@@ -1,6 +1,14 @@
-'use client';
-
 import Link from 'next/link';
+
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+    title: 'About | Sandy Flagg',
+    description: 'Producer and DJ from Sydney, Australia.',
+    alternates: {
+        canonical: 'https://www.sandymusic.com/about',
+    },
+};
 
 export default function AboutPage() {
     return (
