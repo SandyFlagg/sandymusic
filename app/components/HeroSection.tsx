@@ -12,7 +12,7 @@ const HeroSection = () => {
     return (
         <>
             {/* Hero Section */}
-            <section className="min-h-screen flex flex-col lg:flex-row items-center justify-center relative overflow-hidden px-6 lg:px-8 py-20 pb-32 lg:pb-48 gap-16 lg:gap-20 max-w-7xl mx-auto">
+            <section className="min-h-screen flex flex-col lg:flex-row items-center justify-center relative overflow-hidden px-6 lg:px-8 pt-40 pb-32 lg:pt-48 lg:pb-48 gap-16 lg:gap-20 max-w-7xl mx-auto">
                 <div className="absolute inset-0 z-0 opacity-30 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-gray-800 via-black to-black"></div>
 
                 {/* Text Content */}
