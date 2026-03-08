@@ -10,7 +10,7 @@ export const metadata = {
     openGraph: {
         title: 'Streaming Royalty Calculator | Sandy Music',
         description: 'See how much your streams are worth. Calculate earnings from Spotify, Apple Music, and SoundCloud.',
-        url: 'https://sandymusic.com/tools/royalty-calculator',
+        url: 'https://www.sandymusic.com/tools/royalty-calculator',
         siteName: 'Sandy Music',
         locale: 'en_US',
         type: 'website',

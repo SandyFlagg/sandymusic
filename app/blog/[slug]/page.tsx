@@ -112,7 +112,7 @@ export default async function BlogPostPage({ params }: any) {
             name: "Sandy Music",
             logo: {
                 "@type": "ImageObject",
-                url: "https://sandymusic.com/logo.png" // Replace with actual logo URL
+                url: "https://www.sandymusic.com/logo.png" // Replace with actual logo URL
             }
         }
     };

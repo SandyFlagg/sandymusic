@@ -21,7 +21,7 @@ const ibmPlexSans = IBM_Plex_Sans({
 export const metadata: Metadata = {
   title: "Sandy Music - Official Website",
   description: "Official website for Sandy Music. Discover music, upcoming shows, merchandise, and more.",
-  metadataBase: new URL("https://sandymusic.com"),
+  metadataBase: new URL("https://www.sandymusic.com"),
   openGraph: {
     title: "Sandy Music - Official Website",
     description: "Official website for Sandy Music. Discover music, upcoming shows, merchandise, and more.",
@@ -44,7 +44,7 @@ const personSchema: WithContext<Person> = {
   "@context": "https://schema.org",
   "@type": "Person",
   name: "Sandy Flagg",
-  url: "https://sandymusic.com",
+  url: "https://www.sandymusic.com",
   jobTitle: "Music Producer & DJ",
   sameAs: [
     "https://instagram.com/sandyflagg",
@@ -57,7 +57,7 @@ const websiteSchema: WithContext<WebSite> = {
   "@context": "https://schema.org",
   "@type": "WebSite",
   name: "Sandy Music",
-  url: "https://sandymusic.com",
+  url: "https://www.sandymusic.com",
 };
 
 export default function RootLayout({
