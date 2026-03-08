@@ -24,7 +24,11 @@ export async function GET(request: Request) {
 
         // If no slug, proceed with category filtering
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        const where: any = { published: true };
+        const where: any = {};
+        const showAll = searchParams.get('all') === 'true';
+        if (!showAll) {
+            where.published = true;
+        }
         if (category) {
             where.categories = {
                 has: category
