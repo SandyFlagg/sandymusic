@@ -22,7 +22,6 @@ export default function Navbar() {
         if (pathname.startsWith('/blog')) return 'BLOG';
         if (pathname.startsWith('/music')) return 'MUSIC';
         if (pathname.startsWith('/dashboard')) return 'DASHBOARD';
-        if (pathname.startsWith('/tools')) return 'TOOLS';
         if (pathname.startsWith('/privacy')) return 'PRIVACY';
         return null;
     };
@@ -94,26 +93,6 @@ export default function Navbar() {
                         </div>
                     </div>
 
-                    {/* Tools Dropdown */}
-                    <div className="relative group">
-                        <Link href="/tools/royalty-calculator" className={`hover:text-accent transition-colors py-4 ${pathname.startsWith('/tools') ? 'text-accent' : ''}`}>
-                            TOOLS
-                        </Link>
-                        <div className="absolute top-full left-1/2 -translate-x-1/2 pt-6 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform group-hover:-translate-y-1">
-                            <div className="bg-black/95 backdrop-blur-2xl border border-white/10 rounded-xl p-2 min-w-[320px] shadow-2xl flex flex-col gap-1 ring-1 ring-white/5">
-                                <Link href="/tools/royalty-calculator" className="group/item flex items-center gap-4 px-4 py-3 rounded-lg hover:bg-white/5 transition-all hover:translate-x-1">
-                                    <div className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-lg group-hover/item:bg-accent group-hover/item:text-white transition-colors">
-                                        💰
-                                    </div>
-                                    <div>
-                                        <div className="text-sm font-bold text-gray-200 group-hover/item:text-white transition-colors">Royalty Calculator</div>
-                                        <div className="text-[10px] font-medium text-gray-500 group-hover/item:text-gray-400 uppercase tracking-wide">Estimate streaming revenue</div>
-                                    </div>
-                                </Link>
-                            </div>
-                        </div>
-                    </div>
-
                     <Link href={getLink('#dates')} className="hover:text-accent transition-colors">Dates</Link>
                     <Link href={getLink('#contact')} className="hover:text-accent transition-colors">Contact</Link>
                 </div>
@@ -145,13 +124,6 @@ export default function Navbar() {
                                 <Link href="/blog/category/djing" onClick={toggleMenu} className="hover:text-white transition-colors">DJing</Link>
                                 <Link href="/blog/category/music-marketing" onClick={toggleMenu} className="hover:text-white transition-colors">Music Marketing</Link>
                                 <Link href="/blog/category/backstage" onClick={toggleMenu} className="hover:text-white transition-colors">Backstage</Link>
-                            </div>
-                        </div>
-
-                        <div className="flex flex-col gap-4">
-                            <Link href="/tools/royalty-calculator" onClick={toggleMenu} className={`hover:text-accent transition-colors ${pathname.startsWith('/tools') ? 'text-accent' : ''}`}>TOOLS</Link>
-                            <div className="flex flex-col gap-3 pl-4 border-l border-white/10 text-sm font-bold text-gray-400">
-                                <Link href="/tools/royalty-calculator" onClick={toggleMenu} className="hover:text-white transition-colors">Royalty Calculator</Link>
                             </div>
                         </div>
 

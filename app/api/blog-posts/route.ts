@@ -1,6 +1,7 @@
 
 import { NextResponse } from 'next/server';
 import prisma from '@/lib/prisma';
+import { revalidateContent } from '@/lib/revalidate';
 import { currentUser } from '@clerk/nextjs/server';
 
 // GET /api/blog-posts?category=Production
@@ -103,6 +104,8 @@ export async function POST(request: Request) {
                 authorBio: 'Music producer and DJ.' // Default bio
             } as any // eslint-disable-line @typescript-eslint/no-explicit-any
         });
+
+        revalidateContent([`/blog/${post.slug}`]);
 
         return NextResponse.json(post);
     } catch (error) {

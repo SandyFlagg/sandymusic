@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { auth } from '@clerk/nextjs/server';
 import prisma from '@/lib/prisma';
+import { revalidateContent } from '@/lib/revalidate';
 
 interface RouteParams {
     params: Promise<{ slug: string }>;
@@ -75,6 +76,8 @@ export async function PUT(request: Request, { params }: RouteParams) {
             } as any,
         });
 
+        revalidateContent([`/blog/${updatedPost.slug}`, `/blog/${slug}`]);
+
         return NextResponse.json(updatedPost);
     } catch (error) {
         console.error('Failed to update blog post:', error);
@@ -95,6 +98,8 @@ export async function DELETE(request: Request, { params }: RouteParams) {
         await prisma.blogPost.delete({
             where: { slug },
         });
+
+        revalidateContent([`/blog/${slug}`]);
 
         return NextResponse.json({ success: true });
     } catch (error) {

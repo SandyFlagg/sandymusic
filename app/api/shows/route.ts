@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { auth } from '@clerk/nextjs/server';
 import prisma from '@/lib/prisma';
+import { revalidateContent } from '@/lib/revalidate';
 
 export async function GET(request: Request) {
     try {
@@ -42,6 +43,8 @@ export async function POST(request: Request) {
                 isSoldOut: isSoldOut || false,
             },
         });
+
+        revalidateContent();
 
         return NextResponse.json(newShow, { status: 201 });
     } catch (error) {

@@ -1,36 +1,62 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# sandymusic.com
 
-## Getting Started
+Personal site for Sandy — producer and DJ from Sydney. Next.js 16 (App Router),
+Postgres via Prisma, Clerk for admin auth, Tailwind v4.
 
-First, run the development server:
+## Deploying
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+The site is hosted on **Vercel**, connected to this GitHub repo.
+
+```
+git push origin main   # live on www.sandymusic.com in ~2 minutes
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+There is no manual deploy step and no approval gate. Do not use the `vercel` CLI
+locally — `.vercel/project.json` points at a deleted project ID and will target
+the wrong place. Push to `main` instead.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Editing content
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Content lives in the database, not in the repo. Sign in and go to `/admin`:
 
-## Learn More
+| Page | What it manages |
+| --- | --- |
+| `/admin/blog` | Blog posts — create, edit, publish, delete |
+| `/admin/shows` | Tour dates shown on the homepage |
+| `/admin/authors` | Author profiles attached to posts |
+| `/admin/media` | Uploaded images |
 
-To learn more about Next.js, take a look at the following resources:
+Changes appear on the live site immediately. Pages that read from the database
+are cached (`export const revalidate = 60`) and the write routes call
+`revalidateContent()` from `lib/revalidate.ts` to flush that cache on save. If
+you add a new page that queries Prisma, it needs a `revalidate` export too —
+without one Next prerenders it once at build time and it never updates again.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Unpublished posts are visible at their real URL to the signed-in admin only, so
+you can preview a draft before publishing.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Local development
 
-## Deploy on Vercel
+```
+npm install
+npm run dev     # http://localhost:3000
+npm run build   # production build
+npm run lint
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Requires `.env` with `DATABASE_URL`, `DIRECT_URL`, and the Clerk keys. Set
+`ADMIN_USER_ID` to your Clerk user ID — without it, any signed-in user can reach
+`/admin`.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+The database is Supabase Postgres and auto-pauses when idle, so the first
+request after a quiet period can take a while to wake up.
+
+## Known gaps
+
+- **Image uploads don't work in production.** `app/api/upload/route.ts` writes to
+  `public/uploads` on the local filesystem. Vercel's filesystem is read-only and
+  ephemeral, so uploads from the live admin fail or vanish on the next deploy.
+  Fix is to switch to `@vercel/blob`, which needs a Blob store and a
+  `BLOB_READ_WRITE_TOKEN`. Until then, commit cover images to `public/images/`.
+- `app/admin/design-system/` and `lib/shop-data.ts` are leftovers from an
+  abandoned shop. Nothing public links to them.

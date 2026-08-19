@@ -12,7 +12,7 @@ export default function Footer() {
           <div className="md:col-span-4">
             <Link href="/" className="text-2xl font-black tracking-tighter mb-6 block">SANDY</Link>
             <p className="text-gray-500 text-sm leading-relaxed max-w-xs mb-8">
-              Producer and DJ from Sydney, Australia. Sharing music, tips, templates, and the journey.
+              Producer and DJ from Sydney, Australia. Sharing music, tips, and the journey.
             </p>
             {/* Social Icons - Small */}
             <div className="flex gap-4">
@@ -41,7 +41,6 @@ export default function Footer() {
             <h4 className="font-bold uppercase tracking-widest text-xs text-gray-500 mb-6">Explore</h4>
             <ul className="space-y-4 text-sm font-medium text-gray-300">
               <li><Link href="/#music" className="hover:text-accent transition-colors">Music</Link></li>
-              <li><Link href="/#producer" className="hover:text-accent transition-colors">Producer Resources</Link></li>
 
               <li><Link href="/blog" className="hover:text-accent transition-colors">Blog</Link></li>
               <li><Link href="/#contact" className="hover:text-accent transition-colors">Contact</Link></li>

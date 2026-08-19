@@ -4,7 +4,10 @@ import { z } from 'zod';
 
 const submissionSchema = z.object({
     email: z.string().email(),
-    type: z.enum(['TEMPLATE_REQUEST', 'DEMO_SUBMISSION']),
+    // TEMPLATE_REQUEST / DEMO_SUBMISSION are retained so historical rows still
+    // validate if replayed; nothing on the site sends them since the producer
+    // section was removed.
+    type: z.enum(['NEWSLETTER_SIGNUP', 'TOUR_NOTIFY', 'TEMPLATE_REQUEST', 'DEMO_SUBMISSION']),
     data: z.record(z.string(), z.any()).optional(),
 });
 

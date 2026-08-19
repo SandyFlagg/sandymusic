@@ -1,17 +1,27 @@
 import prisma from '@/lib/prisma';
 import Image from "next/image";
 import Link from "next/link";
-import Navbar from "../../../components/Navbar";
 
+
+// Slug -> the exact string stored in BlogPost.categories.
+// Do not derive this by title-casing the slug: "music-marketing" would become
+// "Music-marketing", which never matches the stored "Music Marketing".
+const CATEGORY_NAMES: Record<string, string> = {
+    'djing': 'DJing',
+    'production': 'Production',
+    'backstage': 'Backstage',
+    'music-marketing': 'Music Marketing',
+};
+
+export const revalidate = 60;
 
 export async function generateStaticParams() {
-    const categories = ["djing", "production", "backstage", "music-marketing"];
-    return categories.map((slug) => ({ slug }));
+    return Object.keys(CATEGORY_NAMES).map((slug) => ({ slug }));
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
     const { slug } = await params;
-    const categoryName = slug.charAt(0).toUpperCase() + slug.slice(1);
+    const categoryName = CATEGORY_NAMES[slug] ?? slug;
     return {
         title: `${categoryName} Blog Posts - Sandy Music`,
         description: `Read articles and guides related to ${categoryName} on the Sandy Music blog.`,
@@ -23,7 +33,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
 export default async function CategoryPage({ params }: { params: Promise<{ slug: string }> }) {
     const { slug } = await params;
-    const categoryName = slug.charAt(0).toUpperCase() + slug.slice(1);
+    const categoryName = CATEGORY_NAMES[slug] ?? slug;
 
     // Filter posts by category (case-insensitive) - Fetching from DB now
     const categoryPosts = await prisma.blogPost.findMany({
@@ -56,8 +66,6 @@ export default async function CategoryPage({ params }: { params: Promise<{ slug:
 
     return (
         <div className="min-h-screen bg-background text-foreground font-sans selection:bg-accent selection:text-white">
-            <Navbar />
-
             {/* Header Section */}
             <header className="bg-black/40 border-b border-white/10 pt-32 pb-16 px-4 relative">
                 {/* Background Noise/Gradient Effect */}

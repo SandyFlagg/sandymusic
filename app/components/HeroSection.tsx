@@ -1,14 +1,11 @@
-'use client';
-
-import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import LiveSocialCounter from './LiveSocialCounter';
 import SocialLinks from './SocialLinks';
 
-const HeroSection = () => {
-    const [hoveredIntent, setHoveredIntent] = useState<'music' | 'producer' | null>(null);
+const INSTAGRAM_URL = 'https://www.instagram.com/sandymusic___/';
 
+const HeroSection = () => {
     return (
         <>
             {/* Hero Section */}
@@ -25,6 +22,28 @@ const HeroSection = () => {
                     </p>
                     <p className="text-gray-400 max-w-lg mb-10 text-base md:text-lg leading-relaxed font-medium">
                         Making club music and sharing what I learn along the way trying to make it as a DJ.
+                    </p>
+
+                    {/* Primary CTA */}
+                    <Link
+                        href="#music"
+                        className="group inline-flex items-center gap-3 px-8 py-4 rounded-full bg-white text-black font-black uppercase tracking-widest text-sm hover:bg-accent hover:text-white transition-all duration-300 shadow-lg hover:-translate-y-0.5 active:scale-95"
+                    >
+                        Hear the music
+                        <svg className="w-4 h-4 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
+                    </Link>
+
+                    {/* Collaboration invite */}
+                    <p className="text-gray-500 max-w-md mt-8 mb-10 text-sm md:text-base leading-relaxed font-medium">
+                        Making something yourself? I&apos;d love to help out or jump on a track &mdash;{' '}
+                        <a
+                            href={INSTAGRAM_URL}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-white border-b border-white/30 hover:text-accent hover:border-accent transition-colors"
+                        >
+                            DM me on Instagram
+                        </a>.
                     </p>
 
                     {/* Social Row */}
@@ -60,102 +79,10 @@ const HeroSection = () => {
                 </div>
 
 
-                {/* The Connector Line - Interactive */}
-                <div
-                    className={`absolute bottom-0 left-0 w-full h-px z-10 transition-all duration-700
-            ${hoveredIntent === 'music' ? 'bg-gradient-to-r from-accent via-white/10 to-transparent opacity-100' :
-                            hoveredIntent === 'producer' ? 'bg-gradient-to-l from-white via-white/10 to-transparent opacity-100' :
-                                'bg-gradient-to-r from-transparent via-white/20 to-transparent opacity-50'
-                        }`}
-                ></div>
+                {/* Bottom edge */}
+                <div className="absolute bottom-0 left-0 w-full h-px z-10 bg-gradient-to-r from-transparent via-white/20 to-transparent opacity-50"></div>
             </section>
 
-            {/* Intent Section: User Journey (Semi-Attached) */}
-            <section className="relative z-30 -mt-16 lg:-mt-24 px-6 lg:px-8 container mx-auto max-w-7xl pb-20">
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center relative">
-
-                    {/* Card 1: Music */}
-                    <Link
-                        href="#music"
-                        className="group relative bg-[#111] border border-white/5 rounded-[2.5rem] p-10 lg:p-14 min-h-[400px] flex flex-col justify-between overflow-hidden hover:border-white/10 hover:ring-1 hover:ring-white/5 hover:bg-[#151515] hover:shadow-[0_0_60px_-15px_rgba(255,85,0,0.15)] transition-all duration-500 hover:-translate-y-1"
-                        onMouseEnter={() => setHoveredIntent('music')}
-                        onMouseLeave={() => setHoveredIntent(null)}
-                    >
-
-                        {/* Abstract Background Elements */}
-                        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_#ffffff_0%,_transparent_25%)] opacity-0 group-hover:opacity-5 transition-opacity duration-700"></div>
-                        <div className="absolute top-0 right-0 w-[300px] h-[300px] bg-accent/20 blur-[100px] rounded-full -translate-y-1/2 translate-x-1/2 opacity-0 group-hover:opacity-20 transition-opacity duration-700"></div>
-
-                        {/* Background Music Icon */}
-                        <div className="absolute -right-8 -bottom-8 text-white opacity-[0.03] group-hover:opacity-[0.07] group-hover:scale-110 group-hover:-rotate-12 transition-all duration-700 ease-out">
-                            <svg width="250" height="250" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z" /></svg>
-                        </div>
-
-                        <div className="relative z-10 flex flex-col gap-6">
-                            <div className="w-16 h-1 bg-accent mb-2 group-hover:w-24 transition-all duration-500"></div>
-                            <h3 className="text-5xl lg:text-7xl font-black text-white leading-none tracking-tighter">
-                                I&apos;M HERE <br />
-                                <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-400 group-hover:from-white group-hover:to-white transition-all duration-500">FOR THE MUSIC</span>
-                            </h3>
-                            <p className="text-gray-400 text-xl font-medium leading-relaxed max-w-sm group-hover:text-gray-300 transition-colors">
-                                Tracks, DJ sets, and booking info.
-                            </p>
-                        </div>
-
-                        {/* Action Button */}
-                        <div className="relative z-10 self-end">
-                            <div className="w-20 h-20 rounded-full border border-white/10 bg-white/5 flex items-center justify-center transform group-hover:bg-accent group-hover:border-accent group-hover:rotate-45 group-hover:scale-110 transition-all duration-300 shadow-lg">
-                                <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
-                            </div>
-                        </div>
-                    </Link>
-
-                    {/* Arrow Divider */}
-                    <div className="hidden lg:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-40 pointer-events-none">
-                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" className="text-white/30">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                        </svg>
-                    </div>
-
-                    {/* Card 2: Producer */}
-                    <Link
-                        href="#producer"
-                        className="group relative bg-[#111] border border-white/5 rounded-[2.5rem] p-10 lg:p-14 min-h-[400px] flex flex-col justify-between overflow-hidden hover:border-white/10 hover:ring-1 hover:ring-white/5 hover:bg-[#151515] hover:shadow-[0_0_60px_-15px_rgba(255,255,255,0.05)] transition-all duration-500 hover:-translate-y-1"
-                        onMouseEnter={() => setHoveredIntent('producer')}
-                        onMouseLeave={() => setHoveredIntent(null)}
-                    >
-
-                        {/* Abstract Grid Background */}
-                        <div className="absolute inset-0 opacity-[0.1] group-hover:opacity-[0.15] transition-opacity duration-700"
-                            style={{
-                                backgroundImage: `linear-gradient(to right, #333 1px, transparent 1px),
-                                linear-gradient(to bottom, #333 1px, transparent 1px)`,
-                                backgroundSize: '24px 24px'
-                            }}>
-                        </div>
-
-                        <div className="absolute top-0 right-0 w-[300px] h-[300px] bg-white/10 blur-[100px] rounded-full -translate-y-1/2 translate-x-1/2 opacity-0 group-hover:opacity-20 transition-opacity duration-700"></div>
-
-                        <div className="relative z-10 flex flex-col gap-6">
-                            <div className="w-16 h-1 bg-gray-600 group-hover:bg-white transition-all duration-500 mb-2 group-hover:w-24"></div>
-                            <h3 className="text-5xl lg:text-7xl font-black text-white leading-none tracking-tighter">
-                                I&apos;M A <br />
-                                <span className="text-transparent bg-clip-text bg-gradient-to-r from-gray-400 to-gray-600 group-hover:from-white group-hover:to-gray-300 transition-all duration-500">PRODUCER</span>
-                            </h3>
-                            <p className="text-gray-400 text-xl font-medium leading-relaxed max-w-sm group-hover:text-gray-300 transition-colors">
-                                Templates, presets, and workflow tips.
-                            </p>
-                        </div>
-
-                        {/* Action Button */}
-                        <div className="relative z-10 self-end">
-                            <div className="w-20 h-20 rounded-full border border-white/10 bg-white/5 flex items-center justify-center transform group-hover:bg-white group-hover:text-black group-hover:border-white group-hover:rotate-45 group-hover:scale-110 transition-all duration-300 shadow-lg">
-                                <svg className="w-8 h-8 text-current" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
-                            </div>
-                        </div>
-                    </Link>
-                </div>
-            </section >
         </>
     );
 };

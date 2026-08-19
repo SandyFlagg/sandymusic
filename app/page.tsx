@@ -1,11 +1,12 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import prisma from '@/lib/prisma';
-import ProducerSection from './components/ProducerSection';
 import LatestExportsCarousel from './components/LatestExportsCarousel';
 import HeroSection from './components/HeroSection';
 import NewsletterSection from './components/NewsletterSection';
 import ContactSection from './components/ContactSection';
+import NotifyForm from './components/NotifyForm';
+import { INSTAGRAM_URL, CONTACT_EMAIL } from '@/lib/links';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -13,6 +14,10 @@ export const metadata: Metadata = {
     canonical: '/',
   },
 };
+
+// This page reads shows and blog posts from the database. Without this it is
+// prerendered once at build time and never reflects admin edits again.
+export const revalidate = 60;
 
 export default async function Home() {
 
@@ -83,19 +88,7 @@ export default async function Home() {
                       No public dates right now.
                     </p>
 
-                    {/* Integrated Form */}
-                    <form action="mailto:sandy@sandymusic.com" method="GET" className="flex gap-4 items-center group/form">
-                      <input type="hidden" name="subject" value="Tour Notification List" />
-                      <input type="hidden" name="body" value="Please notify me when tour dates are announced." />
-
-                      <div className="relative flex-1 max-w-sm">
-                        <span className="hidden lg:block absolute left-0 top-1/2 -translate-y-1/2 text-accent transform -translate-x-full opacity-0 group-hover/form:opacity-100 group-hover/form:-translate-x-4 transition-all duration-300">→</span>
-                        <input type="email" placeholder="Join the list for first access" className="bg-transparent border-b border-white/20 pb-2 text-lg text-white placeholder-gray-500 focus:outline-none focus:border-accent w-full transition-colors p-0 rounded-none" />
-                      </div>
-                      <button type="submit" className="w-10 h-10 shrink-0 rounded-full bg-white/5 hover:bg-white hover:text-black flex items-center justify-center transition-all duration-300 border border-white/10 group-hover/form:border-accent/50 group-hover/form:bg-accent/10 group-hover/form:text-accent group-hover/form:hover:bg-accent group-hover/form:hover:text-black">
-                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
-                      </button>
-                    </form>
+                    <NotifyForm />
                   </div>
                 ) : (
                   <div className="space-y-1">
@@ -173,29 +166,28 @@ export default async function Home() {
                   </p>
                 </div>
 
-                {/* Simple form wrapper for mailto linkage */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  {/* Note: In a Server Component we can't easily capture onSubmit for complex mailto generation without client JS. 
-                      Ideally this entire Booking Form should also be a Client Component if we want the complex mailto builder.
-                      For now, let's keep the layout but acknowledging the limitation, or move this specific form logic to a component too.
-                      Let's move this to a BookingForm component later or utilize the ContactSection logic pattern if consistent.
-                      Actually, let's just make a simple link for now or import a client BookingForm.
-                  */}
-                  <div className="md:col-span-2">
-                    <a href="mailto:sandy@sandymusic.com?subject=Booking Enquiry" className="block w-full text-center h-14 bg-white text-black text-base font-black uppercase tracking-[0.2em] rounded-full hover:bg-accent hover:text-white transition-all duration-300 shadow-lg hover:shadow-orange-500/20 py-4">
-                      Send Booking Request via Email
-                    </a>
-                  </div>
-                </div>
+                <a
+                  href={INSTAGRAM_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center gap-3 w-full md:w-auto px-10 h-14 bg-white text-black text-base font-black uppercase tracking-[0.2em] rounded-full hover:bg-accent hover:text-white transition-all duration-300 shadow-lg hover:shadow-orange-500/20"
+                >
+                  DM me on Instagram
+                  <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" /></svg>
+                </a>
+
+                <p className="text-sm text-gray-600 mt-5">
+                  Prefer email?{' '}
+                  <a href={`mailto:${CONTACT_EMAIL}?subject=Booking Enquiry`} className="text-gray-400 hover:text-accent transition-colors underline underline-offset-4 decoration-white/20">
+                    {CONTACT_EMAIL}
+                  </a>
+                </p>
               </div>
             </div>
           </div>
         </div >
       </section >
 
-
-      {/* Producer Section */}
-      < ProducerSection />
 
       {/* Blog: Connected to Prisma */}
       <section id="blog" className="pt-32 lg:pt-40 pb-16 lg:pb-20 px-6 relative overflow-hidden bg-black">
@@ -211,14 +203,14 @@ export default async function Home() {
           {/* Header */}
           <div className="text-center mb-24 relative">
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[10rem] md:text-[16rem] font-black text-white/[0.02] select-none pointer-events-none leading-none tracking-tighter">
-              03
+              02
             </div>
             <h2 className="text-5xl lg:text-7xl font-black uppercase tracking-tighter text-white leading-[0.9] mb-6 relative z-10 text-transparent bg-clip-text bg-gradient-to-b from-white to-gray-500">
               The Blog
             </h2>
             <div className="h-1 w-20 bg-accent mx-auto mb-8 rounded-full"></div>
             <p className="text-gray-400 text-lg md:text-xl font-medium max-w-2xl mx-auto leading-relaxed">
-              Deep dives into production techniques, marketing strategies, and what I&apos;ve learnt from the industry.
+              Notes on making club music, DJing, and trying to get it heard. Mostly things I worked out the slow way.
             </p>
           </div>
 

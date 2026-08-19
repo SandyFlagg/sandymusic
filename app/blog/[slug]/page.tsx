@@ -5,6 +5,20 @@ import prisma from '@/lib/prisma';
 import BlogPostClient from './BlogPostClient';
 import JsonLd from '@/components/JsonLd';
 import { BlogPosting, WithContext } from 'schema-dts';
+import { auth } from '@clerk/nextjs/server';
+
+/**
+ * Unpublished posts 404 for everyone except the signed-in admin, so drafts can
+ * be previewed at their real URL before going live.
+ */
+async function canViewDrafts() {
+    try {
+        const { userId } = await auth();
+        return Boolean(userId) && userId === process.env.ADMIN_USER_ID;
+    } catch {
+        return false;
+    }
+}
 
 interface PageProps {
     params: Promise<{ slug: string }>;
@@ -13,9 +27,10 @@ interface PageProps {
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
     const { slug } = await params;
     const post = await prisma.blogPost.findUnique({
-        where: { slug, published: true },
+        where: { slug, ...(await canViewDrafts() ? {} : { published: true }) },
         select: {
             title: true,
+            published: true,
             tags: true,
             categories: true,
             excerpt: true,
@@ -55,6 +70,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     return {
         title: post.metaTitle || post.title,
         description: post.metaDescription || post.excerpt,
+        robots: post.published ? undefined : { index: false, follow: false },
         alternates: {
             canonical: `/blog/${slug}`,
         },
@@ -71,8 +87,9 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export default async function BlogPostPage({ params }: any) {
     const { slug } = await params;
+    const isAdmin = await canViewDrafts();
     const post = await prisma.blogPost.findUnique({
-        where: { slug, published: true },
+        where: { slug, ...(isAdmin ? {} : { published: true }) },
         include: {
             author: true // Fetch full author relation
         }
@@ -119,7 +136,12 @@ export default async function BlogPostPage({ params }: any) {
 
     return (
         <>
-            <JsonLd schema={articleSchema} />
+            {post.published && <JsonLd schema={articleSchema} />}
+            {!post.published && (
+                <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 px-6 py-3 rounded-full bg-accent text-white text-xs font-black uppercase tracking-widest shadow-2xl">
+                    Draft — only you can see this
+                </div>
+            )}
             <BlogPostClient initialPost={normalizedPost} />
         </>
     );

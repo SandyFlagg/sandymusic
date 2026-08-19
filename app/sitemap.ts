@@ -9,9 +9,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const staticRoutes = [
         '',
         '/about',
-        '/contact',
-        '/music',
         '/blog',
+        '/privacy',
     ].map((route) => ({
         url: `${baseUrl}${route}`,
         lastModified: new Date(),
@@ -34,9 +33,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
     // 4. Fetch Categories (Optional, but good for SEO)
     // Hardcoding based on known categories for now, or could query distinct categories
-    const categories = ['Production', 'DJing', 'Music Marketing', 'Backstage']
+    const categories = ['production', 'djing', 'music-marketing', 'backstage']
     const categoryRoutes = categories.map((cat) => ({
-        url: `${baseUrl}/blog/category/${cat.toLowerCase().replace(/ /g, '-')}`,
+        url: `${baseUrl}/blog/category/${cat}`,
         lastModified: new Date(),
         changeFrequency: 'weekly' as const,
         priority: 0.6,

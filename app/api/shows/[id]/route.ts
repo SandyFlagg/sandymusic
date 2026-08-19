@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { auth } from '@clerk/nextjs/server';
 import prisma from '@/lib/prisma';
+import { revalidateContent } from '@/lib/revalidate';
 
 export async function PUT(request: Request, context: any) {
     try {
@@ -28,6 +29,8 @@ export async function PUT(request: Request, context: any) {
             },
         });
 
+        revalidateContent();
+
         return NextResponse.json(updatedShow);
     } catch (error) {
         console.error('Failed to update show', error);
@@ -47,6 +50,8 @@ export async function DELETE(request: Request, context: any) {
         await prisma.show.delete({
             where: { id },
         });
+
+        revalidateContent();
 
         return NextResponse.json({ success: true });
     } catch (error) {
