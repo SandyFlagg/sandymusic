@@ -93,7 +93,6 @@ export default function Navbar() {
                         </div>
                     </div>
 
-                    <Link href={getLink('#dates')} className="hover:text-accent transition-colors">Dates</Link>
                     <Link href={getLink('#contact')} className="hover:text-accent transition-colors">Contact</Link>
                 </div>
 
@@ -127,7 +126,6 @@ export default function Navbar() {
                             </div>
                         </div>
 
-                        <Link href={getLink('#dates')} onClick={toggleMenu} className="hover:text-accent transition-colors">Dates</Link>
                         <Link href={getLink('#contact')} onClick={toggleMenu} className="hover:text-accent transition-colors">Contact</Link>
                     </div>
                 </div>

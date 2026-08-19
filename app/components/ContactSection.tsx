@@ -11,16 +11,16 @@ const ContactSection = () => {
                     {/* Left: Info */}
                     <div>
                         <div className="absolute top-0 right-0 text-[12rem] font-black text-white/[0.02] select-none pointer-events-none leading-none">
-                            04
+                            03
                         </div>
                         <h2 className="text-5xl lg:text-7xl font-black uppercase tracking-tighter mb-8 relative z-10 text-white leading-none">
                             Get In <br /> Touch
                         </h2>
                         <p className="text-xl text-gray-400 mb-8 max-w-md leading-relaxed">
-                            Club nights, festivals and international bookings — or you&apos;re making something yourself and want a hand. Either way, Instagram is the fastest way to reach me.
+                            Bookings, or if you&apos;re making something and want a hand with it.
                         </p>
                         <p className="text-base text-gray-500 max-w-md leading-relaxed">
-                            I read everything, though it might take me a few days to get back to you.
+                            I read everything. Might take me a few days to reply.
                         </p>
                     </div>
 
@@ -30,7 +30,7 @@ const ContactSection = () => {
 
                         <div className="relative z-10 flex flex-col items-start gap-8">
                             <div>
-                                <h3 className="text-xs font-bold uppercase tracking-widest text-gray-500 mb-3">Instagram</h3>
+                                <h3 className="text-xs font-bold uppercase tracking-widest text-gray-500 mb-3">Best way to reach me</h3>
                                 <p className="text-3xl lg:text-4xl font-black text-white tracking-tight">{INSTAGRAM_HANDLE}</p>
                             </div>
 
@@ -45,7 +45,7 @@ const ContactSection = () => {
                             </a>
 
                             <p className="text-sm text-gray-600">
-                                Prefer email?{' '}
+                                Or email{' '}
                                 <a href={`mailto:${CONTACT_EMAIL}`} className="text-gray-400 hover:text-accent transition-colors underline underline-offset-4 decoration-white/20">
                                     {CONTACT_EMAIL}
                                 </a>

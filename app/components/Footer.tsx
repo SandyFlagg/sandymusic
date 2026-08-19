@@ -41,7 +41,6 @@ export default function Footer() {
             <h4 className="font-bold uppercase tracking-widest text-xs text-gray-500 mb-6">Explore</h4>
             <ul className="space-y-4 text-sm font-medium text-gray-300">
               <li><Link href="/#music" className="hover:text-accent transition-colors">Music</Link></li>
-              <li><Link href="/#dates" className="hover:text-accent transition-colors">Dates</Link></li>
 
               <li><Link href="/blog" className="hover:text-accent transition-colors">Blog</Link></li>
               <li><Link href="/#contact" className="hover:text-accent transition-colors">Contact</Link></li>

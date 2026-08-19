@@ -3,9 +3,7 @@ import Image from 'next/image';
 import prisma from '@/lib/prisma';
 import LatestExportsCarousel from './components/LatestExportsCarousel';
 import HeroSection from './components/HeroSection';
-import NewsletterSection from './components/NewsletterSection';
 import ContactSection from './components/ContactSection';
-import NotifyForm from './components/NotifyForm';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -25,12 +23,6 @@ export default async function Home() {
     where: { published: true },
     orderBy: { createdAt: 'desc' },
     take: 3,
-  });
-
-  // Fetch upcoming shows
-  const upcomingShows = await prisma.show.findMany({
-    where: { date: { gte: new Date(new Date().setHours(0, 0, 0, 0)) } },
-    orderBy: { date: 'asc' },
   });
 
   return (
@@ -64,93 +56,6 @@ export default async function Home() {
         </div>
       </section>
 
-      {/* Upcoming Dates */}
-      <section id="dates" className="px-6 relative bg-black border-t border-white/5">
-        <div className="container mx-auto max-w-7xl relative z-20">
-          {upcomingShows.length === 0 ? (
-            /* Compact strip — a full section would be a lot of page for an empty state */
-            <div className="py-16 flex flex-col lg:flex-row lg:items-center justify-between gap-8">
-              <div>
-                <span className="text-gray-500 font-mono text-xs uppercase tracking-widest mb-2 block">Upcoming Dates</span>
-                <p className="text-2xl font-bold text-white">No public dates right now.</p>
-              </div>
-              <div className="lg:max-w-md w-full">
-                <NotifyForm />
-              </div>
-            </div>
-          ) : (
-            <div className="py-28 lg:py-36">
-              <div className="relative mb-16">
-                <div className="absolute -top-12 right-0 text-[10rem] md:text-[14rem] font-black text-white/[0.02] select-none pointer-events-none leading-none tracking-tighter">
-                  02
-                </div>
-                <span className="relative z-10 text-gray-500 font-mono text-xs uppercase tracking-widest mb-3 block">{new Date().getFullYear()} Season</span>
-                <h2 className="relative z-10 text-5xl lg:text-7xl font-black uppercase tracking-tighter text-white leading-[0.9]">
-                  Upcoming Dates
-                </h2>
-                <div className="mt-6 flex items-center gap-4 relative z-10">
-                  <div className="h-px w-12 bg-accent"></div>
-                  <p className="text-gray-400 text-lg font-medium tracking-wide">
-                    Sydney based. Available worldwide.
-                  </p>
-                </div>
-              </div>
-
-              <div className="space-y-1">
-                {upcomingShows.map((show: any) => {
-                  const showDate = new Date(show.date);
-                  const month = showDate.toLocaleDateString('en-US', { month: 'short' }).toUpperCase();
-                  const day = showDate.toLocaleDateString('en-US', { day: '2-digit' });
-
-                  return (
-                    <div key={show.id} className="group flex flex-col sm:flex-row justify-between items-start sm:items-center gap-6 py-6 border-b border-white/5 last:border-0 hover:bg-white/[0.02] -mx-4 px-4 sm:-mx-6 sm:px-6 rounded-2xl transition-all duration-500">
-                      <div className="flex items-center gap-6 sm:gap-8">
-                        {/* Date block */}
-                        <div className="flex flex-col items-center justify-center min-w-[3.5rem] opacity-50 group-hover:opacity-100 group-hover:scale-110 transition-all duration-500 origin-center">
-                          <span className="text-accent text-xs font-black tracking-widest uppercase mb-1">{month}</span>
-                          <span className="text-3xl sm:text-4xl font-black text-white leading-none">{day}</span>
-                        </div>
-
-                        {/* Venue block */}
-                        <div className="flex flex-col">
-                          <div className="flex items-center gap-3">
-                            <h4 className="text-xl sm:text-2xl font-black text-white uppercase tracking-tight group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-gray-400 transition-all duration-300">{show.venue}</h4>
-                            {show.isSoldOut && (
-                              <span className="bg-red-500/10 text-red-500 text-[10px] uppercase font-black tracking-widest px-2 py-0.5 rounded-sm border border-red-500/20 whitespace-nowrap">Sold Out</span>
-                            )}
-                          </div>
-                          <p className="text-gray-500 text-sm font-medium mt-1 group-hover:text-gray-400 transition-colors uppercase tracking-wide">{show.location}</p>
-                        </div>
-                      </div>
-
-                      {/* Action block */}
-                      <div className="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end shrink-0">
-                        {show.ticketUrl && !show.isSoldOut ? (
-                          <a
-                            href={show.ticketUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="group/btn relative overflow-hidden bg-white text-black font-black uppercase tracking-widest text-xs px-8 py-4 rounded-full hover:shadow-[0_0_20px_rgba(255,255,255,0.1)] transition-all duration-500 inline-block text-center w-full sm:w-auto"
-                          >
-                            <span className="relative z-10 transition-colors duration-500 group-hover/btn:text-white">Tickets</span>
-                            <div className="absolute inset-0 h-full w-full scale-x-0 group-hover/btn:scale-x-100 origin-left transition-transform duration-500 bg-accent ease-out"></div>
-                          </a>
-                        ) : (
-                          <div className="w-full sm:w-auto text-center px-8 py-4 rounded-full bg-white/5 text-gray-600 font-black uppercase tracking-widest text-xs cursor-not-allowed">
-                            {show.isSoldOut ? 'Sold Out' : 'Invite Only'}
-                          </div>
-                        )}
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-          )}
-        </div>
-      </section>
-
-
       {/* Blog: Connected to Prisma */}
       <section id="blog" className="pt-32 lg:pt-40 pb-16 lg:pb-20 px-6 relative overflow-hidden bg-black">
 
@@ -165,7 +70,7 @@ export default async function Home() {
           {/* Header */}
           <div className="text-center mb-24 relative">
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[10rem] md:text-[16rem] font-black text-white/[0.02] select-none pointer-events-none leading-none tracking-tighter">
-              03
+              02
             </div>
             <h2 className="text-5xl lg:text-7xl font-black uppercase tracking-tighter text-white leading-[0.9] mb-6 relative z-10 text-transparent bg-clip-text bg-gradient-to-b from-white to-gray-500">
               The Blog
@@ -255,9 +160,6 @@ export default async function Home() {
 
         </div>
       </section>
-
-      {/* Newsletter Section */}
-      <NewsletterSection />
 
       {/* Contact */}
       <ContactSection />
