@@ -45,7 +45,7 @@ export default async function Home() {
               01
             </div>
             <h2 className="relative z-10 text-5xl lg:text-7xl font-black uppercase tracking-tighter text-white leading-[0.9]">
-              Latest Music
+              My Latest Music
             </h2>
             <div className="mt-6 flex items-center gap-4 relative z-10">
               <div className="h-px w-12 bg-accent"></div>
