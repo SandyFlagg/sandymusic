@@ -54,12 +54,12 @@ const HeroSection = () => {
                 <div className="relative z-10 w-full lg:w-1/2 flex flex-col items-center justify-center animate-fade-in-up delay-200">
 
                     {/* Profile Photo Container */}
-                    <div className="relative w-[300px] h-[300px] md:w-[400px] md:h-[400px] rounded-full sm:rounded-3xl overflow-hidden border-2 border-white/10 shadow-2xl shadow-accent/20 mb-8 sm:rotate-2 hover:rotate-0 transition-transform duration-500">
-                        <div className="absolute inset-0 bg-accent/20 mix-blend-overlay z-10"></div>
+                    <div className="relative w-full max-w-[520px] aspect-[3/2] rounded-3xl overflow-hidden border-2 border-white/10 shadow-2xl shadow-black/60 mb-8 sm:rotate-2 hover:rotate-0 transition-transform duration-500">
                         <Image
-                            src="/sandy-profile.jpg"
-                            alt="Sandy"
+                            src="/sandy-live.jpg"
+                            alt="Sandy playing to a crowd"
                             fill
+                            sizes="(max-width: 1024px) 100vw, 520px"
                             className="object-cover"
                             priority
                         />
