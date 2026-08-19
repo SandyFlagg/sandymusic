@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
@@ -10,6 +10,15 @@ export default function Navbar() {
     const pathname = usePathname();
 
     const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
+
+    // Transparent over the hero, solid once you start scrolling.
+    const [scrolled, setScrolled] = useState(false);
+    useEffect(() => {
+        const onScroll = () => setScrolled(window.scrollY > 24);
+        onScroll();
+        window.addEventListener('scroll', onScroll, { passive: true });
+        return () => window.removeEventListener('scroll', onScroll);
+    }, []);
 
     // Helper to determine if we are on the home page
     const isHome = pathname === '/';
@@ -29,7 +38,13 @@ export default function Navbar() {
     const currentSection = getCurrentSection();
 
     return (
-        <nav className="fixed top-0 left-0 w-full z-50 bg-black/80 backdrop-blur-md border-b border-white/10 font-sans">
+        <nav
+            className={`fixed top-0 left-0 w-full z-50 font-sans transition-all duration-500 ${
+                scrolled || isMenuOpen
+                    ? 'bg-black/80 backdrop-blur-md border-b border-white/10'
+                    : 'bg-transparent border-b border-transparent'
+            }`}
+        >
             <div className="container mx-auto px-6 h-20 flex items-center justify-between">
                 <Link href="/" className="flex items-center gap-3 text-2xl font-black uppercase tracking-tighter hover:text-accent transition-colors">
                     <span>SANDY</span>

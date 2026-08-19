@@ -4,6 +4,8 @@ import prisma from '@/lib/prisma';
 import LatestExportsCarousel from './components/LatestExportsCarousel';
 import HeroSection from './components/HeroSection';
 import ContactSection from './components/ContactSection';
+import Marquee from './components/Marquee';
+import Reveal from './components/Reveal';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -31,6 +33,8 @@ export default async function Home() {
       {/* Hero Section & Intent Cards (Client Component) */}
       <HeroSection />
 
+      <Marquee />
+
       {/* Contact — sits directly under the hero: getting in touch is the point of the site */}
       <ContactSection />
 
@@ -40,7 +44,7 @@ export default async function Home() {
         <div className="absolute top-0 left-0 w-full h-32 bg-gradient-to-b from-gray-200/10 via-gray-400/5 to-transparent pointer-events-none z-10"></div>
 
         <div className="container mx-auto max-w-7xl relative z-20">
-          <div className="relative mb-16">
+          <Reveal className="relative mb-16">
             <div className="absolute -top-12 right-0 text-[10rem] md:text-[14rem] font-black text-white/[0.02] select-none pointer-events-none leading-none tracking-tighter">
               01
             </div>
@@ -53,9 +57,11 @@ export default async function Home() {
                 Recent releases and edits.
               </p>
             </div>
-          </div>
+          </Reveal>
 
-          <LatestExportsCarousel />
+          <Reveal delay={120}>
+            <LatestExportsCarousel />
+          </Reveal>
         </div>
       </section>
 
@@ -71,7 +77,7 @@ export default async function Home() {
         <div className="container mx-auto max-w-7xl relative z-10">
 
           {/* Header */}
-          <div className="text-center mb-24 relative">
+          <Reveal className="text-center mb-24 relative">
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[10rem] md:text-[16rem] font-black text-white/[0.02] select-none pointer-events-none leading-none tracking-tighter">
               02
             </div>
@@ -82,13 +88,14 @@ export default async function Home() {
             <p className="text-gray-400 text-lg md:text-xl font-medium max-w-2xl mx-auto leading-relaxed">
               Notes on making club music, DJing, and trying to get it heard. Mostly things I worked out the slow way.
             </p>
-          </div>
+          </Reveal>
 
           {/* Dynamic Cards Grid */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {recentPosts.length > 0 ? (
-              recentPosts.map((post) => (
-                <Link key={post.id} href={`/blog/${post.slug}`} className="group relative block h-full">
+              recentPosts.map((post, i) => (
+                <Reveal key={post.id} delay={i * 110} className="h-full">
+                <Link href={`/blog/${post.slug}`} className="group relative block h-full">
                   <div className="absolute inset-0 bg-gradient-to-b from-white/10 to-transparent rounded-[2.5rem] -z-10 translate-y-2 opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl"></div>
 
                   <div className="h-full bg-[#111] border border-white/5 rounded-[2.5rem] flex flex-col transition-all duration-500 hover:-translate-y-2 hover:border-white/10 hover:ring-1 hover:ring-white/5 hover:shadow-2xl hover:shadow-accent/10 relative overflow-hidden">
@@ -145,6 +152,7 @@ export default async function Home() {
                     </div>
                   </div>
                 </Link>
+                </Reveal>
               ))
             ) : (
               <div className="col-span-3 text-center py-12 border border-white/5 rounded-[2.5rem] bg-[#111]">
