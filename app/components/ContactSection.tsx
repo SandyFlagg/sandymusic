@@ -10,14 +10,14 @@ const ContactSection = () => {
 
                     {/* Left: Info */}
                     <div>
-                        <div className="absolute top-0 left-0 text-[12rem] font-black text-white/[0.02] select-none pointer-events-none leading-none">
-                            03
+                        <div className="absolute top-0 right-0 text-[12rem] font-black text-white/[0.02] select-none pointer-events-none leading-none">
+                            04
                         </div>
                         <h2 className="text-5xl lg:text-7xl font-black uppercase tracking-tighter mb-8 relative z-10 text-white leading-none">
                             Get In <br /> Touch
                         </h2>
                         <p className="text-xl text-gray-400 mb-8 max-w-md leading-relaxed">
-                            Booking, a track you want a second opinion on, or something you want to work on together — Instagram is the fastest way to reach me.
+                            Club nights, festivals and international bookings — or you&apos;re making something yourself and want a hand. Either way, Instagram is the fastest way to reach me.
                         </p>
                         <p className="text-base text-gray-500 max-w-md leading-relaxed">
                             I read everything, though it might take me a few days to get back to you.

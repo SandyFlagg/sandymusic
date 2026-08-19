@@ -6,7 +6,6 @@ import HeroSection from './components/HeroSection';
 import NewsletterSection from './components/NewsletterSection';
 import ContactSection from './components/ContactSection';
 import NotifyForm from './components/NotifyForm';
-import { INSTAGRAM_URL, CONTACT_EMAIL } from '@/lib/links';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -40,153 +39,116 @@ export default async function Home() {
       {/* Hero Section & Intent Cards (Client Component) */}
       <HeroSection />
 
-      {/* Music & Bookings Section - Layout 2.0 (Seamless & Full Width) */}
-      <section id="music" className="py-32 lg:py-40 px-6 relative bg-[#0a0a0a] border-t border-white/5">
+      {/* Latest Music */}
+      <section id="music" className="py-28 lg:py-36 px-6 relative bg-[#0a0a0a] border-t border-white/5">
         {/* Silver Gradient Top Highlight */}
         <div className="absolute top-0 left-0 w-full h-32 bg-gradient-to-b from-gray-200/10 via-gray-400/5 to-transparent pointer-events-none z-10"></div>
 
         <div className="container mx-auto max-w-7xl relative z-20">
-
-          {/* Section Header */}
-          <div className="flex flex-col lg:flex-row justify-between items-start mb-16 gap-8">
-            <div className="relative">
-              <h2 className="text-5xl lg:text-7xl font-black uppercase tracking-tighter text-white leading-[0.9]">
-                LATEST MUSIC <br /> & BOOKINGS
-              </h2>
-              <div className="mt-6 flex items-center gap-4">
-                <div className="h-px w-12 bg-accent"></div>
-                <p className="text-gray-400 text-lg font-medium tracking-wide">
-                  Sydney based. Available worldwide.
-                </p>
-              </div>
+          <div className="relative mb-16">
+            <div className="absolute -top-12 right-0 text-[10rem] md:text-[14rem] font-black text-white/[0.02] select-none pointer-events-none leading-none tracking-tighter">
+              01
+            </div>
+            <h2 className="relative z-10 text-5xl lg:text-7xl font-black uppercase tracking-tighter text-white leading-[0.9]">
+              Latest Music
+            </h2>
+            <div className="mt-6 flex items-center gap-4 relative z-10">
+              <div className="h-px w-12 bg-accent"></div>
+              <p className="text-gray-400 text-lg font-medium tracking-wide">
+                Recent releases and edits.
+              </p>
             </div>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start mb-24">
+          <LatestExportsCarousel />
+        </div>
+      </section>
 
-            {/* Column 1: Latest Music - 6 Cols */}
-            <div className="lg:col-span-6 bg-[#111] border border-white/10 rounded-[2.5rem] p-8 lg:p-12 h-full shadow-2xl">
-              <LatestExportsCarousel />
+      {/* Upcoming Dates */}
+      <section id="dates" className="px-6 relative bg-black border-t border-white/5">
+        <div className="container mx-auto max-w-7xl relative z-20">
+          {upcomingShows.length === 0 ? (
+            /* Compact strip — a full section would be a lot of page for an empty state */
+            <div className="py-16 flex flex-col lg:flex-row lg:items-center justify-between gap-8">
+              <div>
+                <span className="text-gray-500 font-mono text-xs uppercase tracking-widest mb-2 block">Upcoming Dates</span>
+                <p className="text-2xl font-bold text-white">No public dates right now.</p>
+              </div>
+              <div className="lg:max-w-md w-full">
+                <NotifyForm />
+              </div>
             </div>
-
-            {/* Column 2: Upcoming Dates - 6 Cols */}
-            <div id="dates" className="lg:col-span-6 bg-[#111] border border-white/10 rounded-[2.5rem] p-8 lg:p-12 h-full flex flex-col shadow-2xl">
-              {/* Simplified Upcoming Dates */}
-              <div className="flex justify-between items-end mb-8">
-                <div>
-                  <span className="text-gray-500 font-mono text-xs uppercase tracking-widest mb-2 block">{new Date().getFullYear()} Season</span>
-                  <h3 className="text-4xl lg:text-5xl font-black uppercase tracking-tighter text-white leading-[0.9]">
-                    Upcoming <br /> Dates
-                  </h3>
+          ) : (
+            <div className="py-28 lg:py-36">
+              <div className="relative mb-16">
+                <div className="absolute -top-12 right-0 text-[10rem] md:text-[14rem] font-black text-white/[0.02] select-none pointer-events-none leading-none tracking-tighter">
+                  02
                 </div>
-              </div>
-
-              <div className="flex-1 flex flex-col justify-start mt-8">
-                {upcomingShows.length === 0 ? (
-                  <div className="group cursor-default">
-                    <p className="text-2xl font-bold text-white mb-6 group-hover:text-accent transition-colors duration-300">
-                      No public dates right now.
-                    </p>
-
-                    <NotifyForm />
-                  </div>
-                ) : (
-                  <div className="space-y-1">
-                    {upcomingShows.map((show: any) => {
-                      const showDate = new Date(show.date);
-                      const month = showDate.toLocaleDateString('en-US', { month: 'short' }).toUpperCase();
-                      const day = showDate.toLocaleDateString('en-US', { day: '2-digit' });
-
-                      return (
-                        <div key={show.id} className="group flex flex-col sm:flex-row justify-between items-start sm:items-center gap-6 py-6 border-b border-white/5 last:border-0 hover:bg-white/[0.02] -mx-4 px-4 sm:-mx-6 sm:px-6 rounded-2xl transition-all duration-500">
-                          <div className="flex items-center gap-6 sm:gap-8">
-                            {/* Date block */}
-                            <div className="flex flex-col items-center justify-center min-w-[3.5rem] opacity-50 group-hover:opacity-100 group-hover:scale-110 transition-all duration-500 origin-center">
-                              <span className="text-accent text-xs font-black tracking-widest uppercase mb-1">{month}</span>
-                              <span className="text-3xl sm:text-4xl font-black text-white leading-none">{day}</span>
-                            </div>
-
-                            {/* Venue block */}
-                            <div className="flex flex-col">
-                              <div className="flex items-center gap-3">
-                                <h4 className="text-xl sm:text-2xl font-black text-white uppercase tracking-tight group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-gray-400 transition-all duration-300">{show.venue}</h4>
-                                {show.isSoldOut && (
-                                  <span className="bg-red-500/10 text-red-500 text-[10px] uppercase font-black tracking-widest px-2 py-0.5 rounded-sm border border-red-500/20 whitespace-nowrap">Sold Out</span>
-                                )}
-                              </div>
-                              <p className="text-gray-500 text-sm font-medium mt-1 group-hover:text-gray-400 transition-colors uppercase tracking-wide">{show.location}</p>
-                            </div>
-                          </div>
-
-                          {/* Action block */}
-                          <div className="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end shrink-0">
-                            {show.ticketUrl && !show.isSoldOut ? (
-                              <a
-                                href={show.ticketUrl}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="group/btn relative overflow-hidden bg-white text-black font-black uppercase tracking-widest text-xs px-8 py-4 rounded-full hover:shadow-[0_0_20px_rgba(255,255,255,0.1)] transition-all duration-500 inline-block text-center w-full sm:w-auto"
-                              >
-                                <span className="relative z-10 transition-colors duration-500 group-hover/btn:text-white">Tickets</span>
-                                <div className="absolute inset-0 h-full w-full scale-x-0 group-hover/btn:scale-x-100 origin-left transition-transform duration-500 bg-accent ease-out"></div>
-                              </a>
-                            ) : (
-                              <div className="w-full sm:w-auto text-center px-8 py-4 rounded-full bg-white/5 text-gray-600 font-black uppercase tracking-widest text-xs cursor-not-allowed">
-                                {show.isSoldOut ? 'Sold Out' : 'Invite Only'}
-                              </div>
-                            )}
-                          </div>
-                        </div>
-                      );
-                    })}
-                  </div>
-                )}
-              </div>
-            </div>
-          </div>
-
-          {/* Booking Enquiry - Full Width Row (Moved Bottom) */}
-          <div className="relative">
-            <div className="flex items-center gap-4 mb-8 opacity-50">
-              <div className="h-px bg-white/20 flex-1"></div>
-              <span className="text-xs font-bold uppercase tracking-widest text-gray-500">Industry & Bookings</span>
-              <div className="h-px bg-white/20 flex-1"></div>
-            </div>
-
-            <div className="bg-[#050505] p-8 lg:p-12 border border-white/5 rounded-[2.5rem] relative overflow-hidden group">
-              <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-accent/5 blur-[100px] rounded-full translate-x-1/2 -translate-y-1/2 pointer-events-none"></div>
-
-              <div className="relative z-10">
-                <div className="mb-8">
-                  <h3 className="text-3xl lg:text-4xl font-black uppercase tracking-tight text-white mb-2">
-                    Booking Enquiry
-                  </h3>
-                  <p className="text-gray-400 max-w-md mx-auto lg:mx-0 text-lg">
-                    Club nights, festivals, and international bookings.
+                <span className="relative z-10 text-gray-500 font-mono text-xs uppercase tracking-widest mb-3 block">{new Date().getFullYear()} Season</span>
+                <h2 className="relative z-10 text-5xl lg:text-7xl font-black uppercase tracking-tighter text-white leading-[0.9]">
+                  Upcoming Dates
+                </h2>
+                <div className="mt-6 flex items-center gap-4 relative z-10">
+                  <div className="h-px w-12 bg-accent"></div>
+                  <p className="text-gray-400 text-lg font-medium tracking-wide">
+                    Sydney based. Available worldwide.
                   </p>
                 </div>
+              </div>
 
-                <a
-                  href={INSTAGRAM_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center gap-3 w-full md:w-auto px-10 h-14 bg-white text-black text-base font-black uppercase tracking-[0.2em] rounded-full hover:bg-accent hover:text-white transition-all duration-300 shadow-lg hover:shadow-orange-500/20"
-                >
-                  DM me on Instagram
-                  <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" /></svg>
-                </a>
+              <div className="space-y-1">
+                {upcomingShows.map((show: any) => {
+                  const showDate = new Date(show.date);
+                  const month = showDate.toLocaleDateString('en-US', { month: 'short' }).toUpperCase();
+                  const day = showDate.toLocaleDateString('en-US', { day: '2-digit' });
 
-                <p className="text-sm text-gray-600 mt-5">
-                  Prefer email?{' '}
-                  <a href={`mailto:${CONTACT_EMAIL}?subject=Booking Enquiry`} className="text-gray-400 hover:text-accent transition-colors underline underline-offset-4 decoration-white/20">
-                    {CONTACT_EMAIL}
-                  </a>
-                </p>
+                  return (
+                    <div key={show.id} className="group flex flex-col sm:flex-row justify-between items-start sm:items-center gap-6 py-6 border-b border-white/5 last:border-0 hover:bg-white/[0.02] -mx-4 px-4 sm:-mx-6 sm:px-6 rounded-2xl transition-all duration-500">
+                      <div className="flex items-center gap-6 sm:gap-8">
+                        {/* Date block */}
+                        <div className="flex flex-col items-center justify-center min-w-[3.5rem] opacity-50 group-hover:opacity-100 group-hover:scale-110 transition-all duration-500 origin-center">
+                          <span className="text-accent text-xs font-black tracking-widest uppercase mb-1">{month}</span>
+                          <span className="text-3xl sm:text-4xl font-black text-white leading-none">{day}</span>
+                        </div>
+
+                        {/* Venue block */}
+                        <div className="flex flex-col">
+                          <div className="flex items-center gap-3">
+                            <h4 className="text-xl sm:text-2xl font-black text-white uppercase tracking-tight group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-gray-400 transition-all duration-300">{show.venue}</h4>
+                            {show.isSoldOut && (
+                              <span className="bg-red-500/10 text-red-500 text-[10px] uppercase font-black tracking-widest px-2 py-0.5 rounded-sm border border-red-500/20 whitespace-nowrap">Sold Out</span>
+                            )}
+                          </div>
+                          <p className="text-gray-500 text-sm font-medium mt-1 group-hover:text-gray-400 transition-colors uppercase tracking-wide">{show.location}</p>
+                        </div>
+                      </div>
+
+                      {/* Action block */}
+                      <div className="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end shrink-0">
+                        {show.ticketUrl && !show.isSoldOut ? (
+                          <a
+                            href={show.ticketUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="group/btn relative overflow-hidden bg-white text-black font-black uppercase tracking-widest text-xs px-8 py-4 rounded-full hover:shadow-[0_0_20px_rgba(255,255,255,0.1)] transition-all duration-500 inline-block text-center w-full sm:w-auto"
+                          >
+                            <span className="relative z-10 transition-colors duration-500 group-hover/btn:text-white">Tickets</span>
+                            <div className="absolute inset-0 h-full w-full scale-x-0 group-hover/btn:scale-x-100 origin-left transition-transform duration-500 bg-accent ease-out"></div>
+                          </a>
+                        ) : (
+                          <div className="w-full sm:w-auto text-center px-8 py-4 rounded-full bg-white/5 text-gray-600 font-black uppercase tracking-widest text-xs cursor-not-allowed">
+                            {show.isSoldOut ? 'Sold Out' : 'Invite Only'}
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  );
+                })}
               </div>
             </div>
-          </div>
-        </div >
-      </section >
+          )}
+        </div>
+      </section>
 
 
       {/* Blog: Connected to Prisma */}
@@ -203,7 +165,7 @@ export default async function Home() {
           {/* Header */}
           <div className="text-center mb-24 relative">
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[10rem] md:text-[16rem] font-black text-white/[0.02] select-none pointer-events-none leading-none tracking-tighter">
-              02
+              03
             </div>
             <h2 className="text-5xl lg:text-7xl font-black uppercase tracking-tighter text-white leading-[0.9] mb-6 relative z-10 text-transparent bg-clip-text bg-gradient-to-b from-white to-gray-500">
               The Blog
