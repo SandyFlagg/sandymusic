@@ -31,6 +31,9 @@ export default async function Home() {
       {/* Hero Section & Intent Cards (Client Component) */}
       <HeroSection />
 
+      {/* Contact — sits directly under the hero: getting in touch is the point of the site */}
+      <ContactSection />
+
       {/* Latest Music */}
       <section id="music" className="py-28 lg:py-36 px-6 relative bg-[#0a0a0a] border-t border-white/5">
         {/* Silver Gradient Top Highlight */}
@@ -73,7 +76,7 @@ export default async function Home() {
               02
             </div>
             <h2 className="text-5xl lg:text-7xl font-black uppercase tracking-tighter text-white leading-[0.9] mb-6 relative z-10 text-transparent bg-clip-text bg-gradient-to-b from-white to-gray-500">
-              The Blog
+              What I&apos;ve Learnt
             </h2>
             <div className="h-1 w-20 bg-accent mx-auto mb-8 rounded-full"></div>
             <p className="text-gray-400 text-lg md:text-xl font-medium max-w-2xl mx-auto leading-relaxed">
@@ -160,9 +163,6 @@ export default async function Home() {
 
         </div>
       </section>
-
-      {/* Contact */}
-      <ContactSection />
 
     </div >
   );

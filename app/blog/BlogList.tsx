@@ -29,7 +29,7 @@ export default function BlogList({ blogPosts }: { blogPosts: BlogPostCard[] }) {
 
                     <div className="text-center max-w-2xl mx-auto py-8">
                         <h1 className="text-5xl md:text-6xl font-black uppercase tracking-tighter mb-6 leading-tight">
-                            The Blog
+                            What I&apos;ve Learnt
                         </h1>
                         <p className="text-xl text-gray-400 leading-relaxed">
                             Notes on making club music, DJing, and trying to get it heard. Mostly things I worked out the slow way.
